@@ -39,7 +39,7 @@ Edit with [ZMK Studio](https://zmk.studio), [Keymap Editor](https://nickcoutsos.
 
 ## 🔨 Building & Flashing
 
-Every push builds firmware in CI ([ZMK v0.3](https://github.com/zmkfirmware/zmk/releases)); successful main builds auto-publish to [**Releases**](../../releases).
+Firmware-relevant pushes build in CI ([ZMK v0.3](https://github.com/zmkfirmware/zmk/releases)); successful main builds auto-publish to [**Releases**](../../releases).
 
 1. Grab `lily58_left.uf2` / `lily58_right.uf2` from the [latest release](../../releases/latest)
 2. Plug a half in via USB-C, **double-tap the reset button** → it mounts as a `NICENANO` drive

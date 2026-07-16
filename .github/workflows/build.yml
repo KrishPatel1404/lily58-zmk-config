@@ -1,8 +1,9 @@
 on:
   push:
-    paths-ignore: # skip firmware rebuild for docs and rendered keymap diagrams
-      - "keymap-drawer/**"
-      - "**.md"
+    paths: # firmware-relevant files only — docs/diagram commits never build or release
+      - "config/**"
+      - "build.yaml"
+      - ".github/workflows/build.yml"
   pull_request:
   workflow_dispatch:
 
@@ -56,19 +57,8 @@ jobs:
             firmware/lily58_left.uf2
             firmware/lily58_right.uf2
           body: |
-            ## ⌨️ Lily58 Wireless Firmware
-
             **Commit:** [`${{ github.sha }}`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}) — ${{ steps.meta.outputs.subject }}
-            ZMK v0.3 · nice!nano v2 · nice!view
 
-            | File | Flash to |
-            |---|---|
-            | `lily58_left.uf2` | **Left half** (central — plug USB here) |
-            | `lily58_right.uf2` | **Right half** |
+            **Flash:** double-tap reset → drag the matching `.uf2` onto the `NICENANO` drive (left → left half, right → right).
 
-            > Pairing recovery: `settings_reset.uf2` isn't attached here — download the `firmware` artifact from the Actions run, flash it to both halves, then re-flash the files above.
-
-            ### How to flash
-            1. Plug the half in via USB-C
-            2. Double-tap the reset button → `NICENANO` drive appears
-            3. Drag the matching `.uf2` onto it — done when it ejects itself
+            > Pairing recovery: flash `settings_reset.uf2` (Actions `firmware` artifact) to both halves, then re-flash the files above.
