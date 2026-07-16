@@ -65,9 +65,11 @@ west build -s zmk/app -b nice_nano_v2 -- -DZMK_CONFIG=$PWD/config -DSHIELD="lily
 Keymap diagram (runs automatically in CI on keymap pushes; local render if wanted):
 
 ```bash
+# needs Python >=3.10 (system python3 is 3.9): uv venv --python 3.12 (uv at ~/.local/bin/uv)
 pip install keymap-drawer
-keymap parse -z config/lily58.keymap > keymap-drawer/lily58.yaml
-keymap draw keymap-drawer/lily58.yaml > keymap-drawer/lily58.svg
+# -c goes BEFORE the subcommand (inside `parse`, -c means --columns!); CI auto-detects the config
+keymap -c keymap_drawer.config.yaml parse -z config/lily58.keymap > keymap-drawer/lily58.yaml
+keymap -c keymap_drawer.config.yaml draw keymap-drawer/lily58.yaml > keymap-drawer/lily58.svg
 ```
 
 ## Key Facts & Gotchas
@@ -84,10 +86,15 @@ keymap draw keymap-drawer/lily58.yaml > keymap-drawer/lily58.svg
 
 ## Roadmap (planned — prepare, do NOT implement without Krish's go-ahead)
 
-1. **Combos** *(prep only — wait for Krish)* — live in a `combos { ... }` devicetree node; candidates: J+K=Esc, adjacent-key symbols. Homerow mods are DONE (see log) — tune `tapping-term-ms`/`require-prior-idle-ms` in the `hml`/`hmr` behaviors if Krish reports misfires or missed holds.
-2. **nice!view custom widget** *(prep only — wait for Krish)* — nice-view-gem v0.3.0: add module to `west.yml`, swap shield `nice_view` → `nice_view_gem` in build.yaml, set `CONFIG_ZMK_DISPLAY=y` + `CONFIG_ZMK_DISPLAY_STATUS_SCREEN_CUSTOM=y`. Alternatives: nice-view-mod, zmk-nice-view-hid, zmk-nice-oled.
+1. **nice!view custom widget** *(researched 2026-07-16 — waiting for Krish's pick)*. All options are ZMK modules: add to `west.yml`, swap shield in build.yaml, set `CONFIG_ZMK_DISPLAY=y` + `CONFIG_ZMK_DISPLAY_STATUS_SCREEN_CUSTOM=y`. If a module ever needs files outside `config/**`, remember the build.yml paths-allowlist rule.
+   - **nice-view-gem** (M165437) — TX-6-inspired: WPM chart+gauge, BLE/USB indicators, battery, 16-frame crystal animation on peripheral. Use release **v0.3.0** for our ZMK v0.3 pin (`main` needs Zephyr 4.1). No custom-art options.
+   - **zmk-nice-oled** (mctechnology17) — works on nice!view despite the name, TESTED on ZMK v0.3.0. Most featureful: modifier indicators, CapsLock, WPM (Bongo Cat/Luna), peripheral animations (Gem/Cat/Pokemon/Spaceman), sleep art, custom static images, extensive Kconfig positioning. Optional Rust host app (`zmk-hid-host`) adds Spotify/weather/time/volume.
+   - **nice-view-mod** (GPeye) — stock nice!view widget as an editable module; the "bring your own art" path: convert images with LVGL Image Converter (LVGL v8, CF_ALPHA_1_BIT, C array) and swap the art arrays. Most work, most freedom.
+   - **hammerbeam-slideshow** — 30-image 1-bit art slideshow for the peripheral display.
 
-Done: ~~keymap-drawer CI~~, ~~settings_reset target~~, ~~homerow mods~~ (2026-07-16, see log).
+Dropped by Krish (2026-07-16, don't re-suggest): combos, `&soft_off`, caps-word. Keymap refinement is Krish's own job via the web Keymap Editor — don't restructure his keymap uninvited.
+
+Done: ~~keymap-drawer CI~~, ~~settings_reset target~~, ~~homerow mods~~, ~~keymap-drawer styling~~ (2026-07-16, see log).
 
 ## Self-Learning Protocol (mandatory)
 
@@ -100,6 +107,8 @@ This repo's CLAUDE.md is **self-improving**. Whenever you (Claude) fix a problem
 
 ## Learnings Log
 
+- **2026-07-16** — keymap-drawer styling done (Opus subagent, verified with local render + xmllint): Mac mod glyphs (⌘⌥⇧⌃) via `zmk_keycode_map`, theme-aware CSS in `svg_extra_style`. Gotchas: (1) `zmk_keycode_map` REPLACES the default map — must re-declare all punctuation or `EXCL` renders literally; (2) `keymap -c <config> parse` — the `-c` goes BEFORE the subcommand (inside `parse` it means --columns); (3) custom dark-mode colors need their own `@media (prefers-color-scheme: dark)` block inside `svg_extra_style`; (4) plain unicode symbols > `$$mdi:$$` glyphs (no network fetch in CI).
+- **2026-07-16** — nice!view widget research: Krish picked **zmk-nice-oled** (option B) over nice-view-gem (fixed look), nice-view-mod (DIY art), hammerbeam-slideshow. Implemented on branch `nice-view-widget` in a worktree.
 - **2026-07-16** — Homerow mods added (Krish's go-ahead, his order: A=Ctrl S=Shift D=Opt F=Cmd, mirrored right). Custom `hml`/`hmr` hold-taps: balanced, tapping-term 280, quick-tap 175, require-prior-idle 150, hold-trigger-on-release, opposite-hand + thumb trigger positions (Lily58: left hand = 0-5/12-17/24-29/36-42, right = 6-11/18-23/30-35/43-49, thumbs = 50-57). Old plain Ctrl kept at pos 24. If misfires: raise require-prior-idle; if missed holds: lower tapping-term.
 - **2026-07-16** — Removed all encoder `sensor-bindings` from keymap (no encoder hardware). Release timestamps switched UTC → NZ time per Krish. Future encoder re-add researched + saved to memory.
 - **2026-07-16** — Switched build.yml from `paths-ignore` to a `paths` allowlist (config/**, build.yaml, workflow itself) so only firmware-relevant commits build/release. Companion rule added above: new firmware-affecting paths MUST be added to the allowlist in the same commit.

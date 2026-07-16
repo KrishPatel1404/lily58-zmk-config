@@ -1,7 +1,64 @@
 layout: {zmk_keyboard: lily58}
 layers:
-  Base: [ESC, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '`', TAB, Q, W, E, R, T, Y, U, I, O, P, '-', LCTRL, A, S, D, F, G, H, J, K, L, ;, '''', LSHFT, Z,
-    X, C, V, B, '[', ']', N, M, ',', ., /, RSHFT, LALT, LGUI, Lower, SPACE, RET, Raise, BSPC, RGUI]
+  Base:
+  - esc
+  - '1'
+  - '2'
+  - '3'
+  - '4'
+  - '5'
+  - '6'
+  - '7'
+  - '8'
+  - '9'
+  - '0'
+  - '`'
+  - ⇥
+  - Q
+  - W
+  - E
+  - R
+  - T
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - '-'
+  - {t: ⌃, type: mod}
+  - {t: A, h: ⌃}
+  - {t: S, h: ⇧}
+  - {t: D, h: ⌥}
+  - {t: F, h: ⌘}
+  - G
+  - H
+  - {t: J, h: ⌘}
+  - {t: K, h: ⌥}
+  - {t: L, h: ⇧}
+  - {t: ;, h: ⌃}
+  - ''''
+  - {t: ⇧, type: mod}
+  - Z
+  - X
+  - C
+  - V
+  - B
+  - '['
+  - ']'
+  - N
+  - M
+  - ','
+  - .
+  - /
+  - {t: ⇧, type: mod}
+  - {t: ⌥, type: mod}
+  - {t: ⌘, type: mod}
+  - Lower
+  - ␣
+  - ⏎
+  - Raise
+  - ⌫
+  - {t: ⌘, type: mod}
   Lower:
   - BT CLR
   - {t: BT, h: '0'}
@@ -35,7 +92,7 @@ layers:
   - '%'
   - ^
   - '&'
-  - KP MULTIPLY
+  - ×
   - (
   - )
   - '~'
@@ -49,7 +106,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - '-'
-  - KP PLUS
+  - +
   - '{'
   - '}'
   - '|'
@@ -93,10 +150,10 @@ layers:
   - F5
   - F6
   - {t: ▽, type: trans}
-  - LEFT
-  - DOWN
-  - UP
-  - RIGHT
+  - ←
+  - ↓
+  - ↑
+  - →
   - {t: ▽, type: trans}
   - F7
   - F8
@@ -106,7 +163,7 @@ layers:
   - F12
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - KP PLUS
+  - +
   - '-'
   - '='
   - '['
