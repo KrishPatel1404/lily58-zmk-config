@@ -19,7 +19,7 @@
 |---|---|
 | **Keyboard** | [Typeractive Lily58 wireless](https://typeractive.xyz/products/lily58-partially-assembled-pcb) — 58-key column-staggered split (6×4+4 per half), designed by [kata0510](https://github.com/kata0510/Lily58) |
 | **Controllers** | 2× [nice!nano v2](https://nicekeyboards.com/docs/nice-nano/) (nRF52840, BLE 5, UF2 bootloader) |
-| **Displays** | 2× [nice!view](https://nicekeyboards.com/docs/nice-view/) — Sharp memory-in-pixel LCD, ~1000× less power than OLED |
+| **Displays** | 2× [nice!view](https://nicekeyboards.com/docs/nice-view/) — Sharp memory-in-pixel LCD, ~1000× less power than OLED. Custom widgets via [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled): live modifier indicators, battery, layer, peripheral animation |
 | **Switches** | 60× Kailh **Choc Sunset** tactile — 40 gf actuation, 55 gf bump, 3.0 mm travel, factory-lubed |
 | **Keycaps** | Blank Choc v1, all white — 8× convex 1u (thumbs), 2× homing 1u, 2× 1.5u, rest 1u |
 | **Batteries** | 2× 1800 mAh LIP1359 (PS3-controller replacement cells) — months per charge |
@@ -64,7 +64,7 @@ build.yaml                    # build matrix: left/right + nice!view (+ Studio s
 config/
   lily58.keymap               # layers & bindings
   lily58.conf                 # Kconfig: deep sleep (30 min), BT power, debounce, Studio
-  west.yml                    # ZMK pinned to v0.3
+  west.yml                    # ZMK pinned to v0.3 + zmk-nice-oled widget module
 keymap_drawer.config.yaml     # keymap diagram styling
 keymap-drawer/                # auto-generated keymap SVG/YAML (CI output)
 .github/workflows/

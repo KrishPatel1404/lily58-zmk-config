@@ -30,13 +30,13 @@ ZMK firmware config for **Krish's Typeractive Lily58 wireless split keyboard**. 
 
 Five files do everything:
 
-- `build.yaml` — build matrix, all `nice_nano_v2`: `lily58_left nice_view_adapter nice_view` (+ snippet `studio-rpc-usb-uart`), `lily58_right nice_view_adapter nice_view`, and `settings_reset` (pairing-recovery firmware). Shield order matters: `nice_view_adapter` must precede `nice_view`.
-- `config/west.yml` — pins ZMK to the **`v0.3`** tag.
+- `build.yaml` — build matrix, all `nice_nano_v2`: `lily58_left nice_view_adapter nice_epaper` (+ snippet `studio-rpc-usb-uart`), `lily58_right nice_view_adapter nice_epaper`, and `settings_reset` (pairing-recovery firmware). `nice_epaper` = zmk-nice-oled's shield for nice!view panels; shield order matters: `nice_view_adapter` must precede it.
+- `config/west.yml` — pins ZMK to the **`v0.3`** tag + the `zmk-nice-oled` widget module (mctechnology17, pinned to a commit sha — bump deliberately).
 - `.github/workflows/build.yml` — delegates to the reusable workflow `zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3`. Push trigger uses a `paths` ALLOWLIST (`config/**`, `build.yaml`, the workflow itself) — docs, README, and keymap-drawer bot commits never build or release.
   - ⚠️ **PATHS ALLOWLIST RULE (from Krish):** whenever a new firmware-affecting file or folder is added to this repo — a custom shield/widget module, `boards/**`, a new snippet, extra `.conf`/`.dtsi`/`.keymap` outside `config/`, anything the compiled uf2 depends on — you MUST add its path to the `paths:` list in build.yml in the same commit, or firmware silently stops rebuilding for it. Files that only affect docs/diagrams stay OFF the list. A second `release` job (main-branch pushes + manual runs only) downloads the `firmware` artifact, renames the uf2s to friendly names (`lily58_left.uf2` etc.), and publishes a GitHub Release via `softprops/action-gh-release@v2` — tag `vYYYY.MM.DD-<shortsha>`, title = timestamp only in NZ time (`TZ='Pacific/Auckland'`, auto NZST/NZDT), minimal body (commit link + flash one-liner + recovery note — no Built/stack lines, no table, per Krish). Releases attach left/right only; `settings_reset.uf2` stays artifact-only (Krish's call).
   - ⚠️ **The ZMK version is pinned in TWO places** (west.yml `revision:` and the workflow `@ref`). Always bump both together.
 - `.github/workflows/draw-keymaps.yml` — keymap-drawer CI via `caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main`; on keymap pushes it renders `keymap-drawer/lily58.svg` (+ `.yaml`) and commits them back (README embeds the SVG). Styling lives in `keymap_drawer.config.yaml`.
-- `config/lily58.conf` — Kconfig: deep sleep ON (30 min idle timeout), BT TX +8 dBm, eager debounce (press 1 ms / release 10 ms), ZMK Studio on with locking off, USB logging off.
+- `config/lily58.conf` — Kconfig: deep sleep ON (30 min idle timeout), BT TX +8 dBm, eager debounce (press 1 ms / release 10 ms), ZMK Studio on with locking off, USB logging off, zmk-nice-oled widgets (`CONFIG_NICE_EPAPER_ON=y` + modifier indicators; animation alternatives commented).
 - `config/lily58.keymap` — 3 active layers (Base / Lower / Raise) + 3 `status = "reserved"` layers (ZMK Studio runtime-layer slots — keep them). **Homerow mods** on A/S/D/F + J/K/L/; via custom `hml`/`hmr` hold-taps (Mac order: Ctrl-Shift-Opt-Cmd mirrored; balanced flavor, tapping-term 280 ms, require-prior-idle 150 ms, opposite-hand-only triggers). No combos/macros yet.
 
 ## Git Workflow Rule (from Krish, 2026-07-16)
@@ -81,20 +81,16 @@ keymap -c keymap_drawer.config.yaml draw keymap-drawer/lily58.yaml > keymap-draw
 - Halves lost pairing? Flash `settings_reset.uf2` (built in every CI artifact) to BOTH halves, then re-flash normal left/right firmware.
 - keymap-drawer's bot commit lands on `main` after each keymap push — `git pull` before local work to avoid diverging.
 - **No rotary encoder** — hardware absent (Typeractive PCB has no footprint) and all `sensor-bindings` were removed from the keymap 2026-07-16. Future re-add steps live in persistent memory (`rotary-encoder-future-add`); bindings recoverable from git history.
-- nice!view custom widgets: for ZMK v0.3 use **nice-view-gem release v0.3.0** specifically (its `main` needs Zephyr 4.1 / ZMK main).
+- nice!view widgets come from **zmk-nice-oled** (pinned by sha in west.yml; its nice!view shield is `nice_epaper`, NOT `nice_oled`). If ever switching to nice-view-gem: v0.3.0 release only (its `main` needs Zephyr 4.1).
 - Blank Choc caps fit fine; on choc-spaced PCBs the caps sit nearly gapless, on MX-spaced they'd show gaps — cosmetic only.
 
 ## Roadmap (planned — prepare, do NOT implement without Krish's go-ahead)
 
-1. **nice!view custom widget** *(researched 2026-07-16 — waiting for Krish's pick)*. All options are ZMK modules: add to `west.yml`, swap shield in build.yaml, set `CONFIG_ZMK_DISPLAY=y` + `CONFIG_ZMK_DISPLAY_STATUS_SCREEN_CUSTOM=y`. If a module ever needs files outside `config/**`, remember the build.yml paths-allowlist rule.
-   - **nice-view-gem** (M165437) — TX-6-inspired: WPM chart+gauge, BLE/USB indicators, battery, 16-frame crystal animation on peripheral. Use release **v0.3.0** for our ZMK v0.3 pin (`main` needs Zephyr 4.1). No custom-art options.
-   - **zmk-nice-oled** (mctechnology17) — works on nice!view despite the name, TESTED on ZMK v0.3.0. Most featureful: modifier indicators, CapsLock, WPM (Bongo Cat/Luna), peripheral animations (Gem/Cat/Pokemon/Spaceman), sleep art, custom static images, extensive Kconfig positioning. Optional Rust host app (`zmk-hid-host`) adds Spotify/weather/time/volume.
-   - **nice-view-mod** (GPeye) — stock nice!view widget as an editable module; the "bring your own art" path: convert images with LVGL Image Converter (LVGL v8, CF_ALPHA_1_BIT, C array) and swap the art arrays. Most work, most freedom.
-   - **hammerbeam-slideshow** — 30-image 1-bit art slideshow for the peripheral display.
+Nothing queued. nice!view widget history: Krish picked **zmk-nice-oled** (most featureful: modifier indicators, animations, custom images) over nice-view-gem (fixed TX-6 look, v0.3.0 release for our pin), nice-view-mod (DIY LVGL art path), hammerbeam-slideshow.
 
 Dropped by Krish (2026-07-16, don't re-suggest): combos, `&soft_off`, caps-word. Keymap refinement is Krish's own job via the web Keymap Editor — don't restructure his keymap uninvited.
 
-Done: ~~keymap-drawer CI~~, ~~settings_reset target~~, ~~homerow mods~~, ~~keymap-drawer styling~~ (2026-07-16, see log).
+Done: ~~keymap-drawer CI~~, ~~settings_reset target~~, ~~homerow mods~~, ~~keymap-drawer styling~~, ~~nice!view custom widgets (zmk-nice-oled)~~ (2026-07-16, see log).
 
 ## Self-Learning Protocol (mandatory)
 
@@ -107,6 +103,7 @@ This repo's CLAUDE.md is **self-improving**. Whenever you (Claude) fix a problem
 
 ## Learnings Log
 
+- **2026-07-16** — nice!view widget branch (`nice-view-widget`): zmk-nice-oled module installed. Key facts: module's nice!view shield is `nice_epaper` (NOT `nice_oled`); requires `CONFIG_NICE_EPAPER_ON=y` + `CONFIG_NICE_OLED_ON=n`; pinned to commit sha in west.yml (module has no ZMK-v0.3 tag, README says "TESTED USING ZMK v0.3.0"); RAM warning — don't stack WPM graph + Bongo Cat + Raw HID on nRF52840.
 - **2026-07-16** — keymap-drawer styling done (Opus subagent, verified with local render + xmllint): Mac mod glyphs (⌘⌥⇧⌃) via `zmk_keycode_map`, theme-aware CSS in `svg_extra_style`. Gotchas: (1) `zmk_keycode_map` REPLACES the default map — must re-declare all punctuation or `EXCL` renders literally; (2) `keymap -c <config> parse` — the `-c` goes BEFORE the subcommand (inside `parse` it means --columns); (3) custom dark-mode colors need their own `@media (prefers-color-scheme: dark)` block inside `svg_extra_style`; (4) plain unicode symbols > `$$mdi:$$` glyphs (no network fetch in CI).
 - **2026-07-16** — nice!view widget research: Krish picked **zmk-nice-oled** (option B) over nice-view-gem (fixed look), nice-view-mod (DIY art), hammerbeam-slideshow. Implemented on branch `nice-view-widget` in a worktree.
 - **2026-07-16** — Homerow mods added (Krish's go-ahead, his order: A=Ctrl S=Shift D=Opt F=Cmd, mirrored right). Custom `hml`/`hmr` hold-taps: balanced, tapping-term 280, quick-tap 175, require-prior-idle 150, hold-trigger-on-release, opposite-hand + thumb trigger positions (Lily58: left hand = 0-5/12-17/24-29/36-42, right = 6-11/18-23/30-35/43-49, thumbs = 50-57). Old plain Ctrl kept at pos 24. If misfires: raise require-prior-idle; if missed holds: lower tapping-term.
