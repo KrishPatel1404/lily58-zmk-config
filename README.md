@@ -1,0 +1,72 @@
+<div align="center">
+
+# Lily58 Wireless — ZMK Config
+
+**Typeractive Lily58 · nice!nano v2 · nice!view · Kailh Choc Sunset · custom 3D-printed case**
+
+[![Build ZMK firmware](https://github.com/KrishPatel1404/lily58-zmk-config/actions/workflows/build.yml/badge.svg)](https://github.com/KrishPatel1404/lily58-zmk-config/actions/workflows/build.yml)
+![ZMK](https://img.shields.io/badge/ZMK-v0.3-blue)
+![Board](https://img.shields.io/badge/board-nice!nano_v2-9cf)
+![Wireless](https://img.shields.io/badge/split-BLE-success)
+
+</div>
+
+---
+
+## ⌨️ The Build
+
+| | |
+|---|---|
+| **Keyboard** | [Typeractive Lily58 wireless](https://typeractive.xyz/products/lily58-partially-assembled-pcb) — 58-key column-staggered split (6×4+4 per half), designed by [kata0510](https://github.com/kata0510/Lily58) |
+| **Controllers** | 2× [nice!nano v2](https://nicekeyboards.com/docs/nice-nano/) (nRF52840, BLE 5, UF2 bootloader) |
+| **Displays** | 2× [nice!view](https://nicekeyboards.com/docs/nice-view/) — Sharp memory-in-pixel LCD, ~1000× less power than OLED |
+| **Switches** | 60× Kailh **Choc Sunset** tactile — 40 gf actuation, 55 gf bump, 3.0 mm travel, factory-lubed |
+| **Keycaps** | Blank Choc v1 |
+| **Batteries** | 2× 1800 mAh LIP1359 (PS3-controller replacement cells) — months per charge |
+| **Case** | Custom CAD-modeled faceplate + bottom shell, 3.25° typing angle, printed in white |
+
+## 🗺️ Keymap
+
+Three active layers — **Base**, **Lower** (F-keys, symbols, Bluetooth profiles), **Raise** (numbers, arrows, brackets) — plus three reserved layers editable live in [ZMK Studio](https://zmk.studio). Rotary encoder → volume.
+
+<!-- keymap-drawer will render here once the draw workflow lands -->
+<!-- ![keymap](keymap-drawer/lily58.svg) -->
+
+Edit options:
+- **[ZMK Studio](https://zmk.studio)** — live edits over USB, no reflash (left half, Chrome/Edge)
+- **[Keymap Editor](https://nickcoutsos.github.io/keymap-editor/)** — GUI that commits to this repo
+- Hand-edit [`config/lily58.keymap`](config/lily58.keymap) and push
+
+## 🔨 Building & Flashing
+
+Firmware builds automatically in GitHub Actions on every push (pinned to [ZMK v0.3](https://github.com/zmkfirmware/zmk/releases)).
+
+1. Push a change (or run the workflow manually from the Actions tab)
+2. Download the `firmware` artifact from the run
+3. Plug a half in via USB-C, **double-tap the reset button** → it mounts as a `NICENANO` drive
+4. Drag the matching `.uf2` on (left file → left half, right → right)
+
+> Keymap-only changes usually need just the **left** (central) half reflashed. Anything touching split behavior: flash both.
+
+## 🔋 Battery Notes
+
+- Expected life: **months per charge** (central less than peripheral — it holds two BLE links). Estimate with the [ZMK power profiler](https://zmk.dev/power-profiler).
+- Deep sleep is enabled: after 15 min idle the board sleeps (~20 µA); first keypress reconnects in ~2 s.
+- Charging is via USB-C at 100 mA — a full charge of these cells takes overnight.
+
+**⚠️ Replacement-pack safety:** controller-replacement LiPo packs have no standardized connector polarity. Before ever connecting a new pack, multimeter-verify the red/positive wire lands on the nice!nano **B+** pad — reversed polarity can destroy the board and is a fire risk. The nice!nano has no low-voltage cutoff of its own, so use packs with a built-in protection circuit.
+
+## 📁 Repo Layout
+
+```
+build.yaml                    # build matrix: left/right + nice!view (+ ZMK Studio snippet on left)
+config/
+  lily58.keymap               # layers & bindings
+  lily58.conf                 # Kconfig: sleep, BT power, debounce, Studio
+  west.yml                    # ZMK pinned to v0.3
+.github/workflows/build.yml   # CI → zmkfirmware reusable build workflow
+```
+
+## 🔗 Links
+
+[Typeractive build guide](https://docs.typeractive.xyz/build-guides/lily58-wireless) · [firmware guide](https://docs.typeractive.xyz/build-guides/lily58-wireless/firmware) · [ZMK docs](https://zmk.dev/) · [ZMK GitHub](https://github.com/zmkfirmware) · [Lily58 upstream](https://github.com/kata0510/Lily58) · [keymap-drawer](https://github.com/caksoylar/keymap-drawer)
