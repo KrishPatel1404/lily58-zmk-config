@@ -52,7 +52,7 @@ Firmware builds automatically in GitHub Actions on every push (pinned to [ZMK v0
 
 > Keymap-only changes usually need just the **left** (central) half reflashed. Anything touching split behavior: flash both.
 
-**Halves stopped talking to each other?** Flash `settings_reset.uf2` (in the same artifact) to **both** halves, then re-flash the normal left/right firmware — this wipes stored pairing and lets them re-bond.
+**Halves stopped talking to each other?** Flash `settings_reset.uf2` (in the `firmware` artifact of any Actions build — not attached to releases) to **both** halves, then re-flash the normal left/right firmware — this wipes stored pairing and lets them re-bond.
 
 ## 🔋 Battery Notes
 

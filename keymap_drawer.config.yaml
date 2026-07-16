@@ -2,6 +2,7 @@
 # Run `keymap dump-config` locally to see every available option.
 draw_config:
   dark_mode: auto # SVG follows viewer's light/dark preference (GitHub README friendly)
-  footer_text: "Lily58 &bull; drawn with keymap-drawer"
+  # NOTE: raw XML — HTML entities like &bull; are NOT valid here (breaks SVG parsing); use literal chars
+  footer_text: "Lily58 • drawn with keymap-drawer"
 parse_config:
   zmk_remove_keycode_prefix: ["C_"] # render media keys without the C_ prefix

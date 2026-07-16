@@ -51,7 +51,10 @@ jobs:
         with:
           tag_name: ${{ steps.meta.outputs.tag }}
           name: "Lily58 firmware — ${{ steps.meta.outputs.date }}"
-          files: firmware/*.uf2
+          # settings_reset intentionally excluded — recovery-only, grab it from the Actions artifact
+          files: |
+            firmware/lily58_left.uf2
+            firmware/lily58_right.uf2
           body: |
             ## ⌨️ Lily58 Wireless Firmware
 
@@ -63,7 +66,8 @@ jobs:
             |---|---|
             | `lily58_left.uf2` | **Left half** (central — plug USB here) |
             | `lily58_right.uf2` | **Right half** |
-            | `settings_reset.uf2` | Both halves — **pairing recovery only**, then re-flash normal firmware |
+
+            > Pairing recovery: `settings_reset.uf2` isn't attached here — download the `firmware` artifact from the Actions run, flash it to both halves, then re-flash the files above.
 
             ### How to flash
             1. Plug the half in via USB-C
