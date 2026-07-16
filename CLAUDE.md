@@ -31,7 +31,7 @@ ZMK firmware config for **Krish's Typeractive Lily58 wireless split keyboard**. 
 Five files do everything:
 
 - `build.yaml` — build matrix, all `nice_nano_v2`: `lily58_left nice_view_adapter nice_view` (+ snippet `studio-rpc-usb-uart`), `lily58_right nice_view_adapter nice_view`, and `settings_reset` (pairing-recovery firmware). Shield order matters: `nice_view_adapter` must precede `nice_view`.
-- `config/west.yml` — pins ZMK to the **`v0.3`** tag.
+- `config/west.yml` — pins ZMK to the **`v0.3`** tag + the `zmk-nice-oled` widget module (mctechnology17, pinned to a commit sha — bump deliberately).
 - `.github/workflows/build.yml` — delegates to the reusable workflow `zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3`. Push trigger uses a `paths` ALLOWLIST (`config/**`, `build.yaml`, the workflow itself) — docs, README, and keymap-drawer bot commits never build or release.
   - ⚠️ **PATHS ALLOWLIST RULE (from Krish):** whenever a new firmware-affecting file or folder is added to this repo — a custom shield/widget module, `boards/**`, a new snippet, extra `.conf`/`.dtsi`/`.keymap` outside `config/`, anything the compiled uf2 depends on — you MUST add its path to the `paths:` list in build.yml in the same commit, or firmware silently stops rebuilding for it. Files that only affect docs/diagrams stay OFF the list. A second `release` job (main-branch pushes + manual runs only) downloads the `firmware` artifact, renames the uf2s to friendly names (`lily58_left.uf2` etc.), and publishes a GitHub Release via `softprops/action-gh-release@v2` — tag `vYYYY.MM.DD-<shortsha>`, title = timestamp only in NZ time (`TZ='Pacific/Auckland'`, auto NZST/NZDT), minimal body (commit link + flash one-liner + recovery note — no Built/stack lines, no table, per Krish). Releases attach left/right only; `settings_reset.uf2` stays artifact-only (Krish's call).
   - ⚠️ **The ZMK version is pinned in TWO places** (west.yml `revision:` and the workflow `@ref`). Always bump both together.
@@ -85,7 +85,7 @@ keymap draw keymap-drawer/lily58.yaml > keymap-drawer/lily58.svg
 ## Roadmap (planned — prepare, do NOT implement without Krish's go-ahead)
 
 1. **Combos** *(prep only — wait for Krish)* — live in a `combos { ... }` devicetree node; candidates: J+K=Esc, adjacent-key symbols. Homerow mods are DONE (see log) — tune `tapping-term-ms`/`require-prior-idle-ms` in the `hml`/`hmr` behaviors if Krish reports misfires or missed holds.
-2. **nice!view custom widget** *(prep only — wait for Krish)* — nice-view-gem v0.3.0: add module to `west.yml`, swap shield `nice_view` → `nice_view_gem` in build.yaml, set `CONFIG_ZMK_DISPLAY=y` + `CONFIG_ZMK_DISPLAY_STATUS_SCREEN_CUSTOM=y`. Alternatives: nice-view-mod, zmk-nice-view-hid, zmk-nice-oled.
+2. **nice!view custom widget** — DONE on this branch: zmk-nice-oled module (Krish picked it over nice-view-gem/nice-view-mod). Shield is `nice_epaper` (module's name for nice!view — README name is misleading), swapped in build.yaml; conf enables modifier indicators. Peripheral animation/static-image options are commented in lily58.conf for Krish to toggle.
 
 Done: ~~keymap-drawer CI~~, ~~settings_reset target~~, ~~homerow mods~~ (2026-07-16, see log).
 
@@ -99,6 +99,8 @@ This repo's CLAUDE.md is **self-improving**. Whenever you (Claude) fix a problem
 4. **README.md must always mirror reality too** (Krish's standing rule): any keyboard change — new feature, config change, switch/keycap/battery/case swap, workflow change — updates BOTH this file and README in the same commit. Neither doc is ever allowed to drift from the physical keyboard or the repo.
 
 ## Learnings Log
+
+- **2026-07-16** — nice!view widget branch (`nice-view-widget`): zmk-nice-oled module installed. Key facts: module's nice!view shield is `nice_epaper` (NOT `nice_oled`); requires `CONFIG_NICE_EPAPER_ON=y` + `CONFIG_NICE_OLED_ON=n`; pinned to commit sha in west.yml (module has no ZMK-v0.3 tag, README says "TESTED USING ZMK v0.3.0"); RAM warning — don't stack WPM graph + Bongo Cat + Raw HID on nRF52840.
 
 - **2026-07-16** — Homerow mods added (Krish's go-ahead, his order: A=Ctrl S=Shift D=Opt F=Cmd, mirrored right). Custom `hml`/`hmr` hold-taps: balanced, tapping-term 280, quick-tap 175, require-prior-idle 150, hold-trigger-on-release, opposite-hand + thumb trigger positions (Lily58: left hand = 0-5/12-17/24-29/36-42, right = 6-11/18-23/30-35/43-49, thumbs = 50-57). Old plain Ctrl kept at pos 24. If misfires: raise require-prior-idle; if missed holds: lower tapping-term.
 - **2026-07-16** — Removed all encoder `sensor-bindings` from keymap (no encoder hardware). Release timestamps switched UTC → NZ time per Krish. Future encoder re-add researched + saved to memory.

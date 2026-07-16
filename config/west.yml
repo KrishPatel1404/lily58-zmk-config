@@ -2,10 +2,17 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: mctechnology17
+      url-base: https://github.com/mctechnology17
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: v0.3
       import: app/west.yml
+    # nice!view custom widget module (README name says oled; nice_epaper shield = nice!view).
+    # Pinned to a main commit tested against ZMK v0.3.0 — bump deliberately, not to a moving branch.
+    - name: zmk-nice-oled
+      remote: mctechnology17
+      revision: 46f824abb2bd41f1287c5c68abd14122af6042a3
   self:
     path: config
