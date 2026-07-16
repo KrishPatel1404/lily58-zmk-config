@@ -27,8 +27,6 @@
 
 ## 🗺️ Keymap
 
-Three active layers — **Base**, **Lower** (F-keys, symbols, Bluetooth profiles), **Raise** (numbers, arrows, brackets) — plus three reserved layers editable live in [ZMK Studio](https://zmk.studio).
-
 <div align="center">
 
 ![Keymap diagram](keymap-drawer/lily58.svg "Lily58 keymap")
@@ -37,14 +35,11 @@ Three active layers — **Base**, **Lower** (F-keys, symbols, Bluetooth profiles
 
 </div>
 
-Edit options:
-- **[ZMK Studio](https://zmk.studio)** — live edits over USB, no reflash (left half, Chrome/Edge)
-- **[Keymap Editor](https://nickcoutsos.github.io/keymap-editor/)** — GUI that commits to this repo
-- Hand-edit [`config/lily58.keymap`](config/lily58.keymap) and push
+Edit with [ZMK Studio](https://zmk.studio), [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/), or [`config/lily58.keymap`](config/lily58.keymap).
 
 ## 🔨 Building & Flashing
 
-Firmware builds automatically in GitHub Actions on every push (pinned to [ZMK v0.3](https://github.com/zmkfirmware/zmk/releases)), and every successful main-branch build is published to [**Releases**](../../releases) with ready-to-flash files.
+Every push builds firmware in CI ([ZMK v0.3](https://github.com/zmkfirmware/zmk/releases)); successful main builds auto-publish to [**Releases**](../../releases).
 
 1. Grab `lily58_left.uf2` / `lily58_right.uf2` from the [latest release](../../releases/latest)
 2. Plug a half in via USB-C, **double-tap the reset button** → it mounts as a `NICENANO` drive
@@ -52,15 +47,15 @@ Firmware builds automatically in GitHub Actions on every push (pinned to [ZMK v0
 
 > Keymap-only changes usually need just the **left** (central) half reflashed. Anything touching split behavior: flash both.
 
-**Halves stopped talking to each other?** Flash `settings_reset.uf2` (in the `firmware` artifact of any Actions build — not attached to releases) to **both** halves, then re-flash the normal left/right firmware — this wipes stored pairing and lets them re-bond.
+**Halves not pairing?** Flash `settings_reset.uf2` (Actions `firmware` artifact) to both halves, then re-flash normal firmware.
 
 ## 🔋 Battery Notes
 
-- Expected life: **months per charge** (central less than peripheral — it holds two BLE links). Estimate with the [ZMK power profiler](https://zmk.dev/power-profiler).
-- Deep sleep is enabled: after 30 min idle the board sleeps (~20 µA); first keypress reconnects in ~2 s.
-- Charging is via USB-C at 100 mA — a full charge of these cells takes overnight.
+- [ZMK power profiler](https://zmk.dev/power-profiler) estimate (1800 mAh, nice!view, 2 BLE profiles, 30% asleep): **central ~4 months (±4 wks)**, **peripheral ~1 year (±3 mo)** per charge.
+- Deep sleep after 30 min idle (~20 µA); first keypress reconnects in ~2 s.
+- Charges via USB-C at 100 mA — full charge takes overnight.
 
-**⚠️ Replacement-pack safety:** controller-replacement LiPo packs have no standardized connector polarity. Before ever connecting a new pack, multimeter-verify the red/positive wire lands on the nice!nano **B+** pad — reversed polarity can destroy the board and is a fire risk. The nice!nano has no low-voltage cutoff of its own, so use packs with a built-in protection circuit.
+**⚠️ Battery safety:** replacement-pack polarity isn't standardized — multimeter-verify red/+ lands on **B+** before connecting (reversed = dead board, fire risk). nice!nano has no low-voltage cutoff; use packs with a protection circuit.
 
 ## 📁 Repo Layout
 

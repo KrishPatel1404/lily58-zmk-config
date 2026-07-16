@@ -24,7 +24,7 @@ ZMK firmware config for **Krish's Typeractive Lily58 wireless split keyboard**. 
 - **Polarity is NOT standardized**: game-controller packs and the maker/JST convention are opposite ~half the time. Reversed polarity can destroy the nice!nano and is a LiPo fire risk. Any battery work: verify red/+ lands on B+ with a multimeter first, per pack — never assume both packs match.
 - nice!nano v2 has **no low-voltage cutoff** — the pack's own protection circuit (PCM) is the only over-discharge guard. Cheap replacements sometimes omit it.
 - Keep charging at the **default 100 mA** (LIP1359 spec max is 0.4 A; do not bridge the 500 mA jumper). Full charge ≈ 13–18 h.
-- Expected life at these capacities: central ~2.5–7 months, peripheral ~8–12+ months per charge.
+- Expected life — Krish's ZMK power profiler run (1800 mAh, split, nice!view, 2 BLE profiles, 30% asleep): **central 3 mo 4 wks (±4 wks), peripheral 1 yr 3 d (±3 mo)**. Real capacity likely lower than label, scale down accordingly.
 
 ## Repo Architecture
 
@@ -99,6 +99,7 @@ This repo's CLAUDE.md is **self-improving**. Whenever you (Claude) fix a problem
 
 ## Learnings Log
 
+- **2026-07-16** — Krish ran the ZMK power profiler (1800 mAh/nice!view/2 profiles/30% asleep): central ≈4 months, peripheral ≈1 year. Recorded in both docs. Also tightened README wording per his style preference: concise, no long explainer lines.
 - **2026-07-16** — First auto-release published: `v2026.07.16-42ec651`, left/right assets only, body renders correctly. Release pipeline verified end-to-end.
 - **2026-07-16** — 🐛 keymap-drawer `footer_text` is injected as raw XML: HTML entities (`&bull;`) are undefined in XML → malformed SVG → GitHub shows "Invalid image source" and the README image 404s. Use literal unicode chars (•) in footer_text. Drawer logs were clean — validate SVGs with `xmllint --noout` when the image won't render.
 - **2026-07-16** — Krish: releases attach `lily58_left.uf2` + `lily58_right.uf2` only; settings_reset stays in the Actions artifact.
