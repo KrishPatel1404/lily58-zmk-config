@@ -37,7 +37,7 @@ Five files do everything:
   - ⚠️ **The ZMK version is pinned in TWO places** (west.yml `revision:` and the workflow `@ref`). Always bump both together.
 - `.github/workflows/draw-keymaps.yml` — keymap-drawer CI via `caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main`; on keymap pushes it renders `keymap-drawer/lily58.svg` (+ `.yaml`) and commits them back (README embeds the SVG). Styling lives in `keymap_drawer.config.yaml`.
 - `config/lily58.conf` — Kconfig: deep sleep ON (30 min idle timeout), BT TX +8 dBm, eager debounce (press 1 ms / release 10 ms), ZMK Studio on with locking off, USB logging off.
-- `config/lily58.keymap` — 3 active layers (Base / Lower / Raise) + 3 `status = "reserved"` layers (ZMK Studio runtime-layer slots — keep them). No hold-taps/combos/macros yet.
+- `config/lily58.keymap` — 3 active layers (Base / Lower / Raise) + 3 `status = "reserved"` layers (ZMK Studio runtime-layer slots — keep them). **Homerow mods** on A/S/D/F + J/K/L/; via custom `hml`/`hmr` hold-taps (Mac order: Ctrl-Shift-Opt-Cmd mirrored; balanced flavor, tapping-term 280 ms, require-prior-idle 150 ms, opposite-hand-only triggers). No combos/macros yet.
 
 ## Git Workflow Rule (from Krish, 2026-07-16)
 
@@ -84,10 +84,10 @@ keymap draw keymap-drawer/lily58.yaml > keymap-drawer/lily58.svg
 
 ## Roadmap (planned — prepare, do NOT implement without Krish's go-ahead)
 
-1. **Homerow mods / combos** *(prep only — wait for Krish)* — plan: `&mt`-style hold-taps on A/S/D/F + J/K/L/;, `tapping-term-ms` ~200–280, `flavor = "balanced"`, positional hold-tap (`hold-trigger-key-positions`) to kill misfires; consider `require-prior-idle-ms`. Combos live in a `combos { ... }` devicetree node. Start conservative; Sunsets' light 40 gf makes accidental holds likelier.
+1. **Combos** *(prep only — wait for Krish)* — live in a `combos { ... }` devicetree node; candidates: J+K=Esc, adjacent-key symbols. Homerow mods are DONE (see log) — tune `tapping-term-ms`/`require-prior-idle-ms` in the `hml`/`hmr` behaviors if Krish reports misfires or missed holds.
 2. **nice!view custom widget** *(prep only — wait for Krish)* — nice-view-gem v0.3.0: add module to `west.yml`, swap shield `nice_view` → `nice_view_gem` in build.yaml, set `CONFIG_ZMK_DISPLAY=y` + `CONFIG_ZMK_DISPLAY_STATUS_SCREEN_CUSTOM=y`. Alternatives: nice-view-mod, zmk-nice-view-hid, zmk-nice-oled.
 
-Done: ~~keymap-drawer CI~~, ~~settings_reset target~~ (2026-07-16, see log).
+Done: ~~keymap-drawer CI~~, ~~settings_reset target~~, ~~homerow mods~~ (2026-07-16, see log).
 
 ## Self-Learning Protocol (mandatory)
 
@@ -100,6 +100,7 @@ This repo's CLAUDE.md is **self-improving**. Whenever you (Claude) fix a problem
 
 ## Learnings Log
 
+- **2026-07-16** — Homerow mods added (Krish's go-ahead, his order: A=Ctrl S=Shift D=Opt F=Cmd, mirrored right). Custom `hml`/`hmr` hold-taps: balanced, tapping-term 280, quick-tap 175, require-prior-idle 150, hold-trigger-on-release, opposite-hand + thumb trigger positions (Lily58: left hand = 0-5/12-17/24-29/36-42, right = 6-11/18-23/30-35/43-49, thumbs = 50-57). Old plain Ctrl kept at pos 24. If misfires: raise require-prior-idle; if missed holds: lower tapping-term.
 - **2026-07-16** — Removed all encoder `sensor-bindings` from keymap (no encoder hardware). Release timestamps switched UTC → NZ time per Krish. Future encoder re-add researched + saved to memory.
 - **2026-07-16** — Switched build.yml from `paths-ignore` to a `paths` allowlist (config/**, build.yaml, workflow itself) so only firmware-relevant commits build/release. Companion rule added above: new firmware-affecting paths MUST be added to the allowlist in the same commit.
 - **2026-07-16** — Release body slimmed to commit line + flash one-liner + recovery note (Krish: no Built/stack lines, no file table).
