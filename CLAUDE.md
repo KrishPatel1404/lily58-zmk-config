@@ -33,11 +33,11 @@ Five files do everything:
 - `build.yaml` — build matrix, all `nice_nano_v2`: `lily58_left nice_view_adapter nice_view` (+ snippet `studio-rpc-usb-uart`), `lily58_right nice_view_adapter nice_view`, and `settings_reset` (pairing-recovery firmware). Shield order matters: `nice_view_adapter` must precede `nice_view`.
 - `config/west.yml` — pins ZMK to the **`v0.3`** tag.
 - `.github/workflows/build.yml` — delegates to the reusable workflow `zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3`. Push trigger uses a `paths` ALLOWLIST (`config/**`, `build.yaml`, the workflow itself) — docs, README, and keymap-drawer bot commits never build or release.
-  - ⚠️ **PATHS ALLOWLIST RULE (from Krish):** whenever a new firmware-affecting file or folder is added to this repo — a custom shield/widget module, `boards/**`, a new snippet, extra `.conf`/`.dtsi`/`.keymap` outside `config/`, anything the compiled uf2 depends on — you MUST add its path to the `paths:` list in build.yml in the same commit, or firmware silently stops rebuilding for it. Files that only affect docs/diagrams stay OFF the list. A second `release` job (main-branch pushes + manual runs only) downloads the `firmware` artifact, renames the uf2s to friendly names (`lily58_left.uf2` etc.), and publishes a GitHub Release via `softprops/action-gh-release@v2` — tag `vYYYY.MM.DD-<shortsha>`, title = timestamp only, minimal body (commit link + flash one-liner + recovery note — no Built/stack lines, no table, per Krish). Releases attach left/right only; `settings_reset.uf2` stays artifact-only (Krish's call).
+  - ⚠️ **PATHS ALLOWLIST RULE (from Krish):** whenever a new firmware-affecting file or folder is added to this repo — a custom shield/widget module, `boards/**`, a new snippet, extra `.conf`/`.dtsi`/`.keymap` outside `config/`, anything the compiled uf2 depends on — you MUST add its path to the `paths:` list in build.yml in the same commit, or firmware silently stops rebuilding for it. Files that only affect docs/diagrams stay OFF the list. A second `release` job (main-branch pushes + manual runs only) downloads the `firmware` artifact, renames the uf2s to friendly names (`lily58_left.uf2` etc.), and publishes a GitHub Release via `softprops/action-gh-release@v2` — tag `vYYYY.MM.DD-<shortsha>`, title = timestamp only in NZ time (`TZ='Pacific/Auckland'`, auto NZST/NZDT), minimal body (commit link + flash one-liner + recovery note — no Built/stack lines, no table, per Krish). Releases attach left/right only; `settings_reset.uf2` stays artifact-only (Krish's call).
   - ⚠️ **The ZMK version is pinned in TWO places** (west.yml `revision:` and the workflow `@ref`). Always bump both together.
 - `.github/workflows/draw-keymaps.yml` — keymap-drawer CI via `caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main`; on keymap pushes it renders `keymap-drawer/lily58.svg` (+ `.yaml`) and commits them back (README embeds the SVG). Styling lives in `keymap_drawer.config.yaml`.
 - `config/lily58.conf` — Kconfig: deep sleep ON (30 min idle timeout), BT TX +8 dBm, eager debounce (press 1 ms / release 10 ms), ZMK Studio on with locking off, USB logging off.
-- `config/lily58.keymap` — 3 active layers (Base / Lower / Raise) + 3 `status = "reserved"` layers (ZMK Studio runtime-layer slots — keep them). Encoder bound to volume on all layers. No hold-taps/combos/macros yet.
+- `config/lily58.keymap` — 3 active layers (Base / Lower / Raise) + 3 `status = "reserved"` layers (ZMK Studio runtime-layer slots — keep them). No hold-taps/combos/macros yet.
 
 ## Git Workflow Rule (from Krish, 2026-07-16)
 
@@ -78,7 +78,7 @@ keymap draw keymap-drawer/lily58.yaml > keymap-drawer/lily58.svg
 - Deep sleep wipes unsaved ZMK Studio changes — save Studio edits before walking away.
 - Halves lost pairing? Flash `settings_reset.uf2` (built in every CI artifact) to BOTH halves, then re-flash normal left/right firmware.
 - keymap-drawer's bot commit lands on `main` after each keymap push — `git pull` before local work to avoid diverging.
-- Krish's board has **no rotary encoder installed** — the keymap's `&inc_dec_kp` sensor bindings are inert leftovers from the upstream config; don't mention encoder features in user-facing docs.
+- **No rotary encoder** — hardware absent (Typeractive PCB has no footprint) and all `sensor-bindings` were removed from the keymap 2026-07-16. Future re-add steps live in persistent memory (`rotary-encoder-future-add`); bindings recoverable from git history.
 - nice!view custom widgets: for ZMK v0.3 use **nice-view-gem release v0.3.0** specifically (its `main` needs Zephyr 4.1 / ZMK main).
 - Blank Choc caps fit fine; on choc-spaced PCBs the caps sit nearly gapless, on MX-spaced they'd show gaps — cosmetic only.
 
@@ -100,6 +100,7 @@ This repo's CLAUDE.md is **self-improving**. Whenever you (Claude) fix a problem
 
 ## Learnings Log
 
+- **2026-07-16** — Removed all encoder `sensor-bindings` from keymap (no encoder hardware). Release timestamps switched UTC → NZ time per Krish. Future encoder re-add researched + saved to memory.
 - **2026-07-16** — Switched build.yml from `paths-ignore` to a `paths` allowlist (config/**, build.yaml, workflow itself) so only firmware-relevant commits build/release. Companion rule added above: new firmware-affecting paths MUST be added to the allowlist in the same commit.
 - **2026-07-16** — Release body slimmed to commit line + flash one-liner + recovery note (Krish: no Built/stack lines, no file table).
 - **2026-07-16** — Release style per Krish: title = date only (no "Lily58 firmware —" prefix), body has no Built line (title covers it), stack line unlabeled. NOTE: the "Source code (zip/tar.gz)" entries on releases are GitHub auto-generated links, not assets — no API/setting removes them; don't waste time trying.

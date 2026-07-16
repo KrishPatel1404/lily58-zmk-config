@@ -42,8 +42,9 @@ jobs:
         env:
           HEAD_MSG: ${{ github.event.head_commit.message }}
         run: |
-          echo "tag=v$(date -u +'%Y.%m.%d')-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
-          echo "date=$(date -u +'%Y-%m-%d %H:%M UTC')" >> "$GITHUB_OUTPUT"
+          # New Zealand time (handles NZST/NZDT automatically)
+          echo "tag=v$(TZ='Pacific/Auckland' date +'%Y.%m.%d')-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+          echo "date=$(TZ='Pacific/Auckland' date +'%Y-%m-%d %H:%M %Z')" >> "$GITHUB_OUTPUT"
           # first line of the commit message, for the release body (fallback for manual runs)
           echo "subject=$(printf '%s' "${HEAD_MSG:-Manual build}" | head -1)" >> "$GITHUB_OUTPUT"
 
