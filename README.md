@@ -31,8 +31,6 @@
 
 ![Keymap diagram](keymap-drawer/lily58.svg "Lily58 keymap")
 
-*auto-drawn on every keymap push by [keymap-drawer](https://github.com/caksoylar/keymap-drawer)*
-
 </div>
 
 Edit with [ZMK Studio](https://zmk.studio), [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/), or [`config/lily58.keymap`](config/lily58.keymap).
