@@ -99,6 +99,7 @@ This repo's CLAUDE.md is **self-improving**. Whenever you (Claude) fix a problem
 
 ## Learnings Log
 
+- **2026-07-16** — First auto-release published: `v2026.07.16-42ec651`, left/right assets only, body renders correctly. Release pipeline verified end-to-end.
 - **2026-07-16** — 🐛 keymap-drawer `footer_text` is injected as raw XML: HTML entities (`&bull;`) are undefined in XML → malformed SVG → GitHub shows "Invalid image source" and the README image 404s. Use literal unicode chars (•) in footer_text. Drawer logs were clean — validate SVGs with `xmllint --noout` when the image won't render.
 - **2026-07-16** — Krish: releases attach `lily58_left.uf2` + `lily58_right.uf2` only; settings_reset stays in the Actions artifact.
 - **2026-07-16** — Added auto-release job to build.yml: every successful main push publishes a GitHub Release with renamed uf2s attached. Gotcha avoided: `github.event.head_commit.message` is multiline — inject only the first line (via env + `head -1`) or the markdown body breaks; it's also empty on `workflow_dispatch`, needs fallback.
