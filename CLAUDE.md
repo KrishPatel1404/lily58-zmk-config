@@ -14,7 +14,7 @@ ZMK firmware config for **Krish's Typeractive Lily58 wireless split keyboard**. 
 | Controllers | 2× **nice!nano v2** (nRF52840, 1MB flash/256KB RAM, UF2 bootloader, charges at 100 mA default) |
 | Displays | 2× **nice!view** (Sharp LS011B7DH03 memory-in-pixel LCD, 160×68, ~10 µA panel draw) — native support on Typeractive PCB, no CS bodge wire needed |
 | Switches | 60× **Kailh Choc Sunset** tactile (Choc v1/PG1350, 40 gf actuation, 55 gf bump, 1.5 mm pre-travel / 3.0 mm total, factory-lubed) — bought from KEEBD |
-| Keycaps | Blank Choc v1 caps (two-prong stem; MX caps never fit) |
+| Keycaps | Blank Choc v1 caps, all white (two-prong stem; MX caps never fit): 8× convex 1u (thumbs), 2× homing 1u (F/J), 2× 1.5u, rest standard 1u |
 | Batteries | 2× **1800 mAh LIP1359** PS3-controller replacement cells (3.7 V LiPo). Label likely overstated — real capacity ~700–1300 mAh typical for these. See battery safety below |
 | Case | **Custom CAD-modeled case**, white print, faceplate + bottom shell, fixed **3.25° typing angle** |
 | Central half | **Left** (carries the `studio-rpc-usb-uart` snippet; plug USB into left) |

@@ -21,7 +21,7 @@
 | **Controllers** | 2× [nice!nano v2](https://nicekeyboards.com/docs/nice-nano/) (nRF52840, BLE 5, UF2 bootloader) |
 | **Displays** | 2× [nice!view](https://nicekeyboards.com/docs/nice-view/) — Sharp memory-in-pixel LCD, ~1000× less power than OLED |
 | **Switches** | 60× Kailh **Choc Sunset** tactile — 40 gf actuation, 55 gf bump, 3.0 mm travel, factory-lubed |
-| **Keycaps** | Blank Choc v1 |
+| **Keycaps** | Blank Choc v1, all white — 8× convex 1u (thumbs), 2× homing 1u, 2× 1.5u, rest 1u |
 | **Batteries** | 2× 1800 mAh LIP1359 (PS3-controller replacement cells) — months per charge |
 | **Case** | Custom CAD-modeled faceplate + bottom shell, 3.25° typing angle, printed in white |
 
