@@ -44,12 +44,11 @@ Edit options:
 
 ## 🔨 Building & Flashing
 
-Firmware builds automatically in GitHub Actions on every push (pinned to [ZMK v0.3](https://github.com/zmkfirmware/zmk/releases)).
+Firmware builds automatically in GitHub Actions on every push (pinned to [ZMK v0.3](https://github.com/zmkfirmware/zmk/releases)), and every successful main-branch build is published to [**Releases**](../../releases) with ready-to-flash files.
 
-1. Push a change (or run the workflow manually from the Actions tab)
-2. Download the `firmware` artifact from the run
-3. Plug a half in via USB-C, **double-tap the reset button** → it mounts as a `NICENANO` drive
-4. Drag the matching `.uf2` on (left file → left half, right → right)
+1. Grab `lily58_left.uf2` / `lily58_right.uf2` from the [latest release](../../releases/latest)
+2. Plug a half in via USB-C, **double-tap the reset button** → it mounts as a `NICENANO` drive
+3. Drag the matching `.uf2` on (left file → left half, right → right)
 
 > Keymap-only changes usually need just the **left** (central) half reflashed. Anything touching split behavior: flash both.
 

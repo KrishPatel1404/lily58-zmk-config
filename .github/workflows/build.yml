@@ -9,3 +9,63 @@ on:
 jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3
+
+  release:
+    # Publish every successful main-branch build as a GitHub Release with the .uf2s attached
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    steps:
+      - name: Download firmware artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: firmware
+          path: firmware
+
+      - name: Rename firmware files
+        run: |
+          cd firmware
+          for f in *.uf2; do
+            case "$f" in
+              *lily58_left*)     mv "$f" lily58_left.uf2 ;;
+              *lily58_right*)    mv "$f" lily58_right.uf2 ;;
+              *settings_reset*)  mv "$f" settings_reset.uf2 ;;
+            esac
+          done
+          ls -la
+
+      - name: Prepare release metadata
+        id: meta
+        env:
+          HEAD_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          echo "tag=v$(date -u +'%Y.%m.%d')-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+          echo "date=$(date -u +'%Y-%m-%d %H:%M UTC')" >> "$GITHUB_OUTPUT"
+          # first line of the commit message, for the release body (fallback for manual runs)
+          echo "subject=$(printf '%s' "${HEAD_MSG:-Manual build}" | head -1)" >> "$GITHUB_OUTPUT"
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          name: "Lily58 firmware — ${{ steps.meta.outputs.date }}"
+          files: firmware/*.uf2
+          body: |
+            ## ⌨️ Lily58 Wireless Firmware
+
+            **Built:** ${{ steps.meta.outputs.date }}
+            **Commit:** [`${{ github.sha }}`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}) — ${{ steps.meta.outputs.subject }}
+            **Stack:** ZMK v0.3 · nice!nano v2 · nice!view
+
+            | File | Flash to |
+            |---|---|
+            | `lily58_left.uf2` | **Left half** (central — plug USB here) |
+            | `lily58_right.uf2` | **Right half** |
+            | `settings_reset.uf2` | Both halves — **pairing recovery only**, then re-flash normal firmware |
+
+            ### How to flash
+            1. Plug the half in via USB-C
+            2. Double-tap the reset button → `NICENANO` drive appears
+            3. Drag the matching `.uf2` onto it — done when it ejects itself

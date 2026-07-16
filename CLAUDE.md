@@ -32,11 +32,15 @@ Five files do everything:
 
 - `build.yaml` — build matrix, all `nice_nano_v2`: `lily58_left nice_view_adapter nice_view` (+ snippet `studio-rpc-usb-uart`), `lily58_right nice_view_adapter nice_view`, and `settings_reset` (pairing-recovery firmware). Shield order matters: `nice_view_adapter` must precede `nice_view`.
 - `config/west.yml` — pins ZMK to the **`v0.3`** tag.
-- `.github/workflows/build.yml` — delegates to the reusable workflow `zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3`. Has `paths-ignore` for `keymap-drawer/**` and `**.md` so diagram/doc commits don't burn firmware builds.
+- `.github/workflows/build.yml` — delegates to the reusable workflow `zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3`. Has `paths-ignore` for `keymap-drawer/**` and `**.md` so diagram/doc commits don't burn firmware builds. A second `release` job (main-branch pushes + manual runs only) downloads the `firmware` artifact, renames the uf2s to friendly names (`lily58_left.uf2` etc.), and publishes a GitHub Release via `softprops/action-gh-release@v2` — tag `vYYYY.MM.DD-<shortsha>`, structured body with flash table + commit link.
   - ⚠️ **The ZMK version is pinned in TWO places** (west.yml `revision:` and the workflow `@ref`). Always bump both together.
 - `.github/workflows/draw-keymaps.yml` — keymap-drawer CI via `caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main`; on keymap pushes it renders `keymap-drawer/lily58.svg` (+ `.yaml`) and commits them back (README embeds the SVG). Styling lives in `keymap_drawer.config.yaml`.
 - `config/lily58.conf` — Kconfig: deep sleep ON (30 min idle timeout), BT TX +8 dBm, eager debounce (press 1 ms / release 10 ms), ZMK Studio on with locking off, USB logging off.
 - `config/lily58.keymap` — 3 active layers (Base / Lower / Raise) + 3 `status = "reserved"` layers (ZMK Studio runtime-layer slots — keep them). Encoder bound to volume on all layers. No hold-taps/combos/macros yet.
+
+## Git Workflow Rule (from Krish, 2026-07-16)
+
+**Never `git push` without asking.** Commit locally as work progresses; when a chunk is done, ask Krish whether to push. Every push burns a CI firmware build and (on main) publishes a GitHub Release — he controls the trigger.
 
 ## Common Commands
 
@@ -91,9 +95,12 @@ This repo's CLAUDE.md is **self-improving**. Whenever you (Claude) fix a problem
 1. Append a dated one-liner to the **Learnings Log** below (newest first). Keep entries terse: date — what — why it matters.
 2. Mirror anything durable into persistent memory (`~/.claude/projects/-Users-krish-GitHub-lily58-zmk-config/memory/`) so it survives even without this file.
 3. If a log entry supersedes something above (a version bump, a changed fact), update the body text too — the log records history, the body stays current.
+4. **README.md must always mirror reality too** (Krish's standing rule): any keyboard change — new feature, config change, switch/keycap/battery/case swap, workflow change — updates BOTH this file and README in the same commit. Neither doc is ever allowed to drift from the physical keyboard or the repo.
 
 ## Learnings Log
 
+- **2026-07-16** — Added auto-release job to build.yml: every successful main push publishes a GitHub Release with renamed uf2s attached. Gotcha avoided: `github.event.head_commit.message` is multiline — inject only the first line (via env + `head -1`) or the markdown body breaks; it's also empty on `workflow_dispatch`, needs fallback.
+- **2026-07-16** — Krish's rule: NO `git push` without asking him first. Commit locally, ask when chunk done. (Also in memory.)
 - **2026-07-16** — First full CI run green: all 3 firmware targets (left/right/settings_reset) + drawer (17 s). Drawer bot commit race is REAL — it pushed `keymap-drawer render` within ~a minute of the trigger and rejected my next push; always `git pull --rebase` after any keymap push. Build logs show harmless Node 20 deprecation warnings from upstream ZMK workflow actions — not ours to fix.
 - **2026-07-16** — Added keymap-drawer CI (`draw-keymaps.yml`). Verified against upstream: reusable workflow inputs `commit_message`/`amend_commit`/`destination` all exist; `parse_config.zmk_remove_keycode_prefix` and `draw_config.dark_mode: auto` + `footer_text` confirmed valid in CONFIGURATION.md. `dark_mode: auto` makes the SVG follow GitHub's theme.
 - **2026-07-16** — Added `settings_reset` build target; every firmware artifact now includes recovery uf2.
