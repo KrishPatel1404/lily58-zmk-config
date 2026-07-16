@@ -50,7 +50,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.meta.outputs.tag }}
-          name: "Lily58 firmware — ${{ steps.meta.outputs.date }}"
+          name: "${{ steps.meta.outputs.date }}"
           # settings_reset intentionally excluded — recovery-only, grab it from the Actions artifact
           files: |
             firmware/lily58_left.uf2
@@ -58,9 +58,8 @@ jobs:
           body: |
             ## ⌨️ Lily58 Wireless Firmware
 
-            **Built:** ${{ steps.meta.outputs.date }}
             **Commit:** [`${{ github.sha }}`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}) — ${{ steps.meta.outputs.subject }}
-            **Stack:** ZMK v0.3 · nice!nano v2 · nice!view
+            ZMK v0.3 · nice!nano v2 · nice!view
 
             | File | Flash to |
             |---|---|

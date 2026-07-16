@@ -99,6 +99,7 @@ This repo's CLAUDE.md is **self-improving**. Whenever you (Claude) fix a problem
 
 ## Learnings Log
 
+- **2026-07-16** — Release style per Krish: title = date only (no "Lily58 firmware —" prefix), body has no Built line (title covers it), stack line unlabeled. NOTE: the "Source code (zip/tar.gz)" entries on releases are GitHub auto-generated links, not assets — no API/setting removes them; don't waste time trying.
 - **2026-07-16** — Krish ran the ZMK power profiler (1800 mAh/nice!view/2 profiles/30% asleep): central ≈4 months, peripheral ≈1 year. Recorded in both docs. Also tightened README wording per his style preference: concise, no long explainer lines.
 - **2026-07-16** — First auto-release published: `v2026.07.16-42ec651`, left/right assets only, body renders correctly. Release pipeline verified end-to-end.
 - **2026-07-16** — 🐛 keymap-drawer `footer_text` is injected as raw XML: HTML entities (`&bull;`) are undefined in XML → malformed SVG → GitHub shows "Invalid image source" and the README image 404s. Use literal unicode chars (•) in footer_text. Drawer logs were clean — validate SVGs with `xmllint --noout` when the image won't render.
