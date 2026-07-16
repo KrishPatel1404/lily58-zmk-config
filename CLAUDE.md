@@ -86,7 +86,7 @@ keymap -c keymap_drawer.config.yaml draw keymap-drawer/lily58.yaml > keymap-draw
 
 ## Roadmap (planned — prepare, do NOT implement without Krish's go-ahead)
 
-Nothing queued. nice!view widget history: Krish picked **zmk-nice-oled** (most featureful: modifier indicators, animations, custom images) over nice-view-gem (fixed TX-6 look, v0.3.0 release for our pin), nice-view-mod (DIY LVGL art path), hammerbeam-slideshow.
+Nothing queued. Current display setup is FINAL for now (Krish, 2026-07-16): central = battery/output/layer/modifier-indicators, peripheral = battery + Gem animation. Easy future toggles if he asks (all one-line conf changes in zmk-nice-oled): Bongo Cat/Luna WPM, Cat/Pokemon/Spaceman animations, static image (battery saver), sleep art, inverted mode, CapsLock indicator, Raw HID clock/volume/weather/Spotify (needs `zmk-hid-host` on the Mac), custom own art (LVGL Image Converter → C array). Widget history: zmk-nice-oled picked over nice-view-gem (fixed TX-6 look), nice-view-mod (DIY art), hammerbeam-slideshow.
 
 Dropped by Krish (2026-07-16, don't re-suggest): combos, `&soft_off`, caps-word. Keymap refinement is Krish's own job via the web Keymap Editor — don't restructure his keymap uninvited.
 
