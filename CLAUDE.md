@@ -94,6 +94,7 @@ This repo's CLAUDE.md is **self-improving**. Whenever you (Claude) fix a problem
 
 ## Learnings Log
 
+- **2026-07-16** — First full CI run green: all 3 firmware targets (left/right/settings_reset) + drawer (17 s). Drawer bot commit race is REAL — it pushed `keymap-drawer render` within ~a minute of the trigger and rejected my next push; always `git pull --rebase` after any keymap push. Build logs show harmless Node 20 deprecation warnings from upstream ZMK workflow actions — not ours to fix.
 - **2026-07-16** — Added keymap-drawer CI (`draw-keymaps.yml`). Verified against upstream: reusable workflow inputs `commit_message`/`amend_commit`/`destination` all exist; `parse_config.zmk_remove_keycode_prefix` and `draw_config.dark_mode: auto` + `footer_text` confirmed valid in CONFIGURATION.md. `dark_mode: auto` makes the SVG follow GitHub's theme.
 - **2026-07-16** — Added `settings_reset` build target; every firmware artifact now includes recovery uf2.
 - **2026-07-16** — Added `paths-ignore` (`keymap-drawer/**`, `**.md`) to build.yml so the drawer bot's SVG commit doesn't trigger a pointless ~10 min firmware build.
