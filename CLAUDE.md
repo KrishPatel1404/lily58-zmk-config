@@ -77,7 +77,7 @@ keymap draw keymap-drawer/lily58.yaml > keymap-drawer/lily58.svg
 - Deep sleep wipes unsaved ZMK Studio changes — save Studio edits before walking away.
 - Halves lost pairing? Flash `settings_reset.uf2` (built in every CI artifact) to BOTH halves, then re-flash normal left/right firmware.
 - keymap-drawer's bot commit lands on `main` after each keymap push — `git pull` before local work to avoid diverging.
-- The keymap encoder binding (`&inc_dec_kp C_VOL_UP C_VOL_DN`) is inert unless an encoder is physically installed.
+- Krish's board has **no rotary encoder installed** — the keymap's `&inc_dec_kp` sensor bindings are inert leftovers from the upstream config; don't mention encoder features in user-facing docs.
 - nice!view custom widgets: for ZMK v0.3 use **nice-view-gem release v0.3.0** specifically (its `main` needs Zephyr 4.1 / ZMK main).
 - Blank Choc caps fit fine; on choc-spaced PCBs the caps sit nearly gapless, on MX-spaced they'd show gaps — cosmetic only.
 

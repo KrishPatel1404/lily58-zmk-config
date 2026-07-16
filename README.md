@@ -27,7 +27,7 @@
 
 ## 🗺️ Keymap
 
-Three active layers — **Base**, **Lower** (F-keys, symbols, Bluetooth profiles), **Raise** (numbers, arrows, brackets) — plus three reserved layers editable live in [ZMK Studio](https://zmk.studio). Rotary encoder → volume.
+Three active layers — **Base**, **Lower** (F-keys, symbols, Bluetooth profiles), **Raise** (numbers, arrows, brackets) — plus three reserved layers editable live in [ZMK Studio](https://zmk.studio).
 
 <div align="center">
 
