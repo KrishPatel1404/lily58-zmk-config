@@ -29,8 +29,13 @@
 
 Three active layers — **Base**, **Lower** (F-keys, symbols, Bluetooth profiles), **Raise** (numbers, arrows, brackets) — plus three reserved layers editable live in [ZMK Studio](https://zmk.studio). Rotary encoder → volume.
 
-<!-- keymap-drawer will render here once the draw workflow lands -->
-<!-- ![keymap](keymap-drawer/lily58.svg) -->
+<div align="center">
+
+![Keymap diagram](keymap-drawer/lily58.svg "Lily58 keymap")
+
+*auto-drawn on every keymap push by [keymap-drawer](https://github.com/caksoylar/keymap-drawer)*
+
+</div>
 
 Edit options:
 - **[ZMK Studio](https://zmk.studio)** — live edits over USB, no reflash (left half, Chrome/Edge)
@@ -48,10 +53,12 @@ Firmware builds automatically in GitHub Actions on every push (pinned to [ZMK v0
 
 > Keymap-only changes usually need just the **left** (central) half reflashed. Anything touching split behavior: flash both.
 
+**Halves stopped talking to each other?** Flash `settings_reset.uf2` (in the same artifact) to **both** halves, then re-flash the normal left/right firmware — this wipes stored pairing and lets them re-bond.
+
 ## 🔋 Battery Notes
 
 - Expected life: **months per charge** (central less than peripheral — it holds two BLE links). Estimate with the [ZMK power profiler](https://zmk.dev/power-profiler).
-- Deep sleep is enabled: after 15 min idle the board sleeps (~20 µA); first keypress reconnects in ~2 s.
+- Deep sleep is enabled: after 30 min idle the board sleeps (~20 µA); first keypress reconnects in ~2 s.
 - Charging is via USB-C at 100 mA — a full charge of these cells takes overnight.
 
 **⚠️ Replacement-pack safety:** controller-replacement LiPo packs have no standardized connector polarity. Before ever connecting a new pack, multimeter-verify the red/positive wire lands on the nice!nano **B+** pad — reversed polarity can destroy the board and is a fire risk. The nice!nano has no low-voltage cutoff of its own, so use packs with a built-in protection circuit.
@@ -59,12 +66,16 @@ Firmware builds automatically in GitHub Actions on every push (pinned to [ZMK v0
 ## 📁 Repo Layout
 
 ```
-build.yaml                    # build matrix: left/right + nice!view (+ ZMK Studio snippet on left)
+build.yaml                    # build matrix: left/right + nice!view (+ Studio snippet), settings_reset
 config/
   lily58.keymap               # layers & bindings
-  lily58.conf                 # Kconfig: sleep, BT power, debounce, Studio
+  lily58.conf                 # Kconfig: deep sleep (30 min), BT power, debounce, Studio
   west.yml                    # ZMK pinned to v0.3
-.github/workflows/build.yml   # CI → zmkfirmware reusable build workflow
+keymap_drawer.config.yaml     # keymap diagram styling
+keymap-drawer/                # auto-generated keymap SVG/YAML (CI output)
+.github/workflows/
+  build.yml                   # CI → zmkfirmware reusable build workflow
+  draw-keymaps.yml            # CI → keymap-drawer diagram render
 ```
 
 ## 🔗 Links

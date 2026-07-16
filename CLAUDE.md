@@ -30,11 +30,12 @@ ZMK firmware config for **Krish's Typeractive Lily58 wireless split keyboard**. 
 
 Five files do everything:
 
-- `build.yaml` — build matrix. Two targets, both `nice_nano_v2`: `lily58_left nice_view_adapter nice_view` (+ snippet `studio-rpc-usb-uart`) and `lily58_right nice_view_adapter nice_view`. Shield order matters: `nice_view_adapter` must precede `nice_view`.
+- `build.yaml` — build matrix, all `nice_nano_v2`: `lily58_left nice_view_adapter nice_view` (+ snippet `studio-rpc-usb-uart`), `lily58_right nice_view_adapter nice_view`, and `settings_reset` (pairing-recovery firmware). Shield order matters: `nice_view_adapter` must precede `nice_view`.
 - `config/west.yml` — pins ZMK to the **`v0.3`** tag.
-- `.github/workflows/build.yml` — delegates to the reusable workflow `zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3`.
+- `.github/workflows/build.yml` — delegates to the reusable workflow `zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3`. Has `paths-ignore` for `keymap-drawer/**` and `**.md` so diagram/doc commits don't burn firmware builds.
   - ⚠️ **The ZMK version is pinned in TWO places** (west.yml `revision:` and the workflow `@ref`). Always bump both together.
-- `config/lily58.conf` — Kconfig: deep sleep ON, BT TX +8 dBm, eager debounce (press 1 ms / release 10 ms), ZMK Studio on with locking off, USB logging off.
+- `.github/workflows/draw-keymaps.yml` — keymap-drawer CI via `caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main`; on keymap pushes it renders `keymap-drawer/lily58.svg` (+ `.yaml`) and commits them back (README embeds the SVG). Styling lives in `keymap_drawer.config.yaml`.
+- `config/lily58.conf` — Kconfig: deep sleep ON (30 min idle timeout), BT TX +8 dBm, eager debounce (press 1 ms / release 10 ms), ZMK Studio on with locking off, USB logging off.
 - `config/lily58.keymap` — 3 active layers (Base / Lower / Raise) + 3 `status = "reserved"` layers (ZMK Studio runtime-layer slots — keep them). Encoder bound to volume on all layers. No hold-taps/combos/macros yet.
 
 ## Common Commands
@@ -56,7 +57,7 @@ west init -l config && west update && west zephyr-export
 west build -s zmk/app -b nice_nano_v2 -- -DZMK_CONFIG=$PWD/config -DSHIELD="lily58_left nice_view_adapter nice_view" -DSNIPPET=studio-rpc-usb-uart
 ```
 
-Keymap diagram (once keymap-drawer lands; also runs in CI):
+Keymap diagram (runs automatically in CI on keymap pushes; local render if wanted):
 
 ```bash
 pip install keymap-drawer
@@ -70,17 +71,18 @@ keymap draw keymap-drawer/lily58.yaml > keymap-drawer/lily58.svg
 - The v0.3 pin avoids ZMK issue #2990 (nice!nano v2 power regression on `main` from `SOC_DCDC_NRF52X_HV`). Don't switch back to `revision: main` casually.
 - `CONFIG_ZMK_STUDIO_LOCKING=n` means any USB host can edit the keymap via ZMK Studio. If ever re-enabling locking, add a `&studio_unlock` binding FIRST or Studio becomes unreachable.
 - Deep sleep wipes unsaved ZMK Studio changes — save Studio edits before walking away.
-- **No `settings_reset` target exists yet** (roadmap) — if halves lose pairing there is currently no reset firmware in artifacts.
+- Halves lost pairing? Flash `settings_reset.uf2` (built in every CI artifact) to BOTH halves, then re-flash normal left/right firmware.
+- keymap-drawer's bot commit lands on `main` after each keymap push — `git pull` before local work to avoid diverging.
 - The keymap encoder binding (`&inc_dec_kp C_VOL_UP C_VOL_DN`) is inert unless an encoder is physically installed.
 - nice!view custom widgets: for ZMK v0.3 use **nice-view-gem release v0.3.0** specifically (its `main` needs Zephyr 4.1 / ZMK main).
 - Blank Choc caps fit fine; on choc-spaced PCBs the caps sit nearly gapless, on MX-spaced they'd show gaps — cosmetic only.
 
-## Roadmap (planned — prepare, do NOT implement without Krish's go-ahead unless marked ready)
+## Roadmap (planned — prepare, do NOT implement without Krish's go-ahead)
 
-1. **keymap-drawer CI** *(ready to implement)* — add `.github/workflows/draw-keymaps.yml` using `caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main` with `permissions: contents: write`, `keymap_patterns: "config/*.keymap"`, `config_path: keymap_drawer.config.yaml`, `output_folder: keymap-drawer`. Trigger on keymap/config pushes + `workflow_dispatch`. Embed resulting SVG in README.
-2. **settings_reset build target** *(ready to implement)* — add to `build.yaml`: `board: nice_nano_v2`, `shield: settings_reset`. Flash to BOTH halves then re-flash normal firmware to re-pair.
-3. **Homerow mods / combos** *(prep only — wait for Krish)* — plan: `&mt`-style hold-taps on A/S/D/F + J/K/L/;, `tapping-term-ms` ~200–280, `flavor = "balanced"`, positional hold-tap (`hold-trigger-key-positions`) to kill misfires; consider `require-prior-idle-ms`. Combos live in a `combos { ... }` devicetree node. Start conservative; Sunsets' light 40 gf makes accidental holds likelier.
-4. **nice!view custom widget** *(prep only — wait for Krish)* — nice-view-gem v0.3.0: add module to `west.yml`, swap shield `nice_view` → `nice_view_gem` in build.yaml, set `CONFIG_ZMK_DISPLAY=y` + `CONFIG_ZMK_DISPLAY_STATUS_SCREEN_CUSTOM=y`. Alternatives: nice-view-mod, zmk-nice-view-hid, zmk-nice-oled.
+1. **Homerow mods / combos** *(prep only — wait for Krish)* — plan: `&mt`-style hold-taps on A/S/D/F + J/K/L/;, `tapping-term-ms` ~200–280, `flavor = "balanced"`, positional hold-tap (`hold-trigger-key-positions`) to kill misfires; consider `require-prior-idle-ms`. Combos live in a `combos { ... }` devicetree node. Start conservative; Sunsets' light 40 gf makes accidental holds likelier.
+2. **nice!view custom widget** *(prep only — wait for Krish)* — nice-view-gem v0.3.0: add module to `west.yml`, swap shield `nice_view` → `nice_view_gem` in build.yaml, set `CONFIG_ZMK_DISPLAY=y` + `CONFIG_ZMK_DISPLAY_STATUS_SCREEN_CUSTOM=y`. Alternatives: nice-view-mod, zmk-nice-view-hid, zmk-nice-oled.
+
+Done: ~~keymap-drawer CI~~, ~~settings_reset target~~ (2026-07-16, see log).
 
 ## Self-Learning Protocol (mandatory)
 
@@ -92,7 +94,11 @@ This repo's CLAUDE.md is **self-improving**. Whenever you (Claude) fix a problem
 
 ## Learnings Log
 
-- **2026-07-16** — Enabled `CONFIG_ZMK_SLEEP=y` (Krish approved). Idle→sleep after 15 min, ~2 s reconnect on wake.
+- **2026-07-16** — Added keymap-drawer CI (`draw-keymaps.yml`). Verified against upstream: reusable workflow inputs `commit_message`/`amend_commit`/`destination` all exist; `parse_config.zmk_remove_keycode_prefix` and `draw_config.dark_mode: auto` + `footer_text` confirmed valid in CONFIGURATION.md. `dark_mode: auto` makes the SVG follow GitHub's theme.
+- **2026-07-16** — Added `settings_reset` build target; every firmware artifact now includes recovery uf2.
+- **2026-07-16** — Added `paths-ignore` (`keymap-drawer/**`, `**.md`) to build.yml so the drawer bot's SVG commit doesn't trigger a pointless ~10 min firmware build.
+- **2026-07-16** — Bumped sleep timeout to 30 min (`CONFIG_ZMK_IDLE_SLEEP_TIMEOUT=1800000`) per Krish — default 15 min felt too aggressive.
+- **2026-07-16** — Enabled `CONFIG_ZMK_SLEEP=y` (Krish approved). ~2 s reconnect on wake.
 - **2026-07-16** — Verified ZMK v0.3.0 = latest stable tag; v0.4 (Zephyr 4.1/HWMv2) announced but unreleased. Pin is current, in two places (west.yml + workflow ref).
 - **2026-07-16** — Confirmed keymap-drawer CI recipe (reusable workflow `draw-zmk.yml@main`, config at repo-root `keymap_drawer.config.yaml`, SVGs to `keymap-drawer/`).
 - **2026-07-16** — Documented LIP1359 battery hazards: polarity unstandardized (multimeter-check every pack), no board-level LVC on nice!nano v2, charge at 100 mA only, label capacity overstated (~700–1300 mAh real).

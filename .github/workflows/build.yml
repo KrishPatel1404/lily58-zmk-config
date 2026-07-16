@@ -1,4 +1,10 @@
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    paths-ignore: # skip firmware rebuild for docs and rendered keymap diagrams
+      - "keymap-drawer/**"
+      - "**.md"
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
