@@ -37,6 +37,17 @@ draw_config:
 parse_config:
   zmk_remove_keycode_prefix: ["C_"] # render media keys without the C_ prefix
 
+  # raw_binding_map: prettify whole behavior bindings (params aren't keycodes, so
+  # zmk_keycode_map can't reach them). Bluetooth: profile number on top, "BT" below;
+  # clear gets a ✕. Unicode only (no fragile $$mdi:$$ glyphs), per the note above.
+  raw_binding_map:
+    "&bt BT_SEL 0": {t: "0", h: "BT"}
+    "&bt BT_SEL 1": {t: "1", h: "BT"}
+    "&bt BT_SEL 2": {t: "2", h: "BT"}
+    "&bt BT_SEL 3": {t: "3", h: "BT"}
+    "&bt BT_SEL 4": {t: "4", h: "BT"}
+    "&bt BT_CLR":   {t: "✕", h: "BT clear"}
+
   # NOTE: setting zmk_keycode_map REPLACES the built-in default map entirely (it does NOT
   # merge). So every symbol we want pretty must be listed here — the punctuation block below
   # re-declares the defaults we rely on. Numbers (N1→1) and F-keys still fall through fine.
@@ -60,15 +71,26 @@ parse_config:
     LCTL:  {t: "⌃", type: "mod"}
     RCTL:  {t: "⌃", type: "mod"}
 
-    # --- Navigation / whitespace
-    ESC:   "esc"
-    TAB:   "⇥"
-    BSPC:  "⌫"
-    DEL:   "⌦"
-    RET:   "⏎"
-    ENTER: "⏎"
-    SPACE: "␣"
-    CAPS:  "⇪"
+    # --- Navigation / whitespace. Both the SHORT alias AND the FULL ZMK name are listed
+    # for each, so a key renders the icon whether the keymap uses e.g. ESC or ESCAPE,
+    # BSPC or BACKSPACE, APOS or APOSTROPHE. (keymap-drawer normalizes aliases, but
+    # listing both makes it bulletproof against future keymap edits.)
+    ESC:       "⎋"
+    ESCAPE:    "⎋"
+    TAB:       "⇥"
+    BSPC:      "⌫"
+    BACKSPACE: "⌫"
+    BKSP:      "⌫"
+    DEL:       "⌦"
+    DELETE:    "⌦"
+    RET:       "⏎"
+    RETURN:    "⏎"
+    ENTER:     "⏎"
+    SPACE:     "␣"
+    CAPS:      "⇪"
+    CAPSLOCK:  "⇪"
+    APOS:       "'"
+    APOSTROPHE: "'"
 
     # NOTE: keymap-drawer does NOT parse ZMK sensor-bindings (encoders), so the
     # left rotary encoder does not appear in the diagram — its actions are noted in

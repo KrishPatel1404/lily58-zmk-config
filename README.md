@@ -77,9 +77,15 @@ Firmware-relevant pushes build in CI ([ZMK v0.3](https://github.com/zmkfirmware/
 ```
 build.yaml                    # build matrix: left/right + nice!view (+ Studio snippet), settings_reset
 config/
-  lily58.keymap               # layers & bindings
-  lily58.conf                 # Kconfig: deep sleep (30 min), BT power, debounce, Studio
+  lily58.keymap               # layers, homerow mods, encoder sensor-bindings
+  lily58.conf                 # Kconfig: deep sleep (30 min), BT power, debounce, Studio, pointing
   west.yml                    # ZMK pinned to v0.3 + zmk-nice-oled widget module
+src/behaviors/
+  behavior_mouse_scroll_tick.c   # custom behavior: one HID scroll tick per encoder detent
+dts/bindings/behaviors/
+  zmk,behavior-mouse-scroll-tick.yaml   # its devicetree binding
+zephyr/module.yml             # makes this repo a ZMK module (CI auto-compiles the behavior)
+CMakeLists.txt                # builds the behavior into ZMK's app (central half only)
 keymap_drawer.config.yaml     # keymap diagram styling
 keymap-drawer/                # auto-generated keymap SVG/YAML (CI output)
 .github/workflows/
