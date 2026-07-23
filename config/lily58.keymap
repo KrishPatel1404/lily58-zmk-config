@@ -92,7 +92,7 @@
             //   SCROLL SPEED: the two params ARE the per-detent wheel delta. <1 (-1)> = 1 line
             //     per detent. Bump to <2 (-2)>, <3 (-3)>, ... for faster scroll.
             //   DIRECTION: swap the signs -> <(-1) 1> to invert.
-            sensor-bindings = <&inc_dec_scroll 1 (-1)>;
+            sensor-bindings = <&inc_dec_scroll (-2) 2>;
         };
 
         lower_layer {
