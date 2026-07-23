@@ -24,7 +24,7 @@
 | **Keycaps** | Blank Choc v1, all white — 8× convex 1u (thumbs), 2× homing 1u, 2× 1.5u, rest 1u |
 | **Batteries** | 2× 1800 mAh LIP1359 (PS3-controller replacement cells) — months per charge |
 | **Case** | Custom CAD-modeled faceplate + bottom shell, 3.25° typing angle, printed in white |
-| **Encoder** | 1× EC11 rotary on the **left** half (hand-soldered to `pro_micro 20/21`) — 🚧 WIP on branch `rotary`, not yet flashed |
+| **Encoder** | 1× EC11 rotary on the **left** half (hand-soldered to the left nice!nano v2's `P0.31` + `P0.29` pads) — 🚧 WIP on branch `rotary`, not yet flashed |
 
 ## 🗺️ Keymap
 
