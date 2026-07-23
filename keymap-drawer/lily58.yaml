@@ -1,7 +1,7 @@
 layout: {zmk_keyboard: lily58}
 layers:
   Base:
-  - esc
+  - '`'
   - '1'
   - '2'
   - '3'
@@ -12,7 +12,7 @@ layers:
   - '8'
   - '9'
   - '0'
-  - '`'
+  - '='
   - ⇥
   - Q
   - W
@@ -25,7 +25,7 @@ layers:
   - O
   - P
   - '-'
-  - {t: ⌃, type: mod}
+  - ESCAPE
   - {t: A, h: ⌃}
   - {t: S, h: ⇧}
   - {t: D, h: ⌥}
@@ -36,15 +36,15 @@ layers:
   - {t: K, h: ⌥}
   - {t: L, h: ⇧}
   - {t: ;, h: ⌃}
-  - ''''
-  - {t: ⇧, type: mod}
+  - BACKSPACE
+  - {t: ⌃, type: mod}
   - Z
   - X
   - C
   - V
   - B
-  - '['
-  - ']'
+  - APOSTROPHE
+  - APOSTROPHE
   - N
   - M
   - ','
@@ -57,8 +57,8 @@ layers:
   - ␣
   - ⏎
   - Raise
-  - ⌫
-  - {t: ⌘, type: mod}
+  - ←
+  - →
   Lower:
   - BT CLR
   - {t: BT, h: '0'}
