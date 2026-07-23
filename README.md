@@ -36,7 +36,7 @@
 
 Homerow mods on A/S/D/F + J/K/L/; (Ctrl · Shift · Opt · Cmd, mirrored).
 
-Left encoder: **Base** = volume · **Lower** = brightness · **Raise** = page up/down.
+Left encoder: **Base** = scroll up/down (mouse-wheel HID) · **Lower** = brightness · **Raise** = volume.
 
 Edit with [ZMK Studio](https://zmk.studio), [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/), or [`config/lily58.keymap`](config/lily58.keymap).
 
