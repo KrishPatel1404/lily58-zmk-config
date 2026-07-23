@@ -12,10 +12,10 @@ jobs:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3
 
   release:
-    # main pushes → normal Release. rotary pushes → WIP prerelease (different name/tag).
+    # Publish every successful main-branch build as a GitHub Release with the .uf2s attached
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/rotary')
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     permissions:
       contents: write
     steps:
@@ -43,18 +43,8 @@ jobs:
           HEAD_MSG: ${{ github.event.head_commit.message }}
         run: |
           # New Zealand time (handles NZST/NZDT automatically)
-          NZ_DATE="$(TZ='Pacific/Auckland' date +'%Y.%m.%d')"
-          NZ_STAMP="$(TZ='Pacific/Auckland' date +'%Y-%m-%d %H:%M %Z')"
-          if [ "$GITHUB_REF" = "refs/heads/rotary" ]; then
-            # WIP rotary-encoder branch: prerelease, distinct name/tag
-            echo "tag=rotary-v${NZ_DATE}-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
-            echo "name=🚧 Rotary Encoder WIP — ${NZ_STAMP}" >> "$GITHUB_OUTPUT"
-            echo "prerelease=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "tag=v${NZ_DATE}-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
-            echo "name=${NZ_STAMP}" >> "$GITHUB_OUTPUT"
-            echo "prerelease=false" >> "$GITHUB_OUTPUT"
-          fi
+          echo "tag=v$(TZ='Pacific/Auckland' date +'%Y.%m.%d')-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+          echo "date=$(TZ='Pacific/Auckland' date +'%Y-%m-%d %H:%M %Z')" >> "$GITHUB_OUTPUT"
           # first line of the commit message, for the release body (fallback for manual runs)
           echo "subject=$(printf '%s' "${HEAD_MSG:-Manual build}" | head -1)" >> "$GITHUB_OUTPUT"
 
@@ -62,8 +52,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.meta.outputs.tag }}
-          name: "${{ steps.meta.outputs.name }}"
-          prerelease: ${{ steps.meta.outputs.prerelease }}
+          name: "${{ steps.meta.outputs.date }}"
           # settings_reset intentionally excluded — recovery-only, grab it from the Actions artifact
           files: |
             firmware/lily58_left.uf2
