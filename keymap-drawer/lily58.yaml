@@ -25,7 +25,7 @@ layers:
   - O
   - P
   - '-'
-  - ESCAPE
+  - ⎋
   - {t: A, h: ⌃}
   - {t: S, h: ⇧}
   - {t: D, h: ⌥}
@@ -36,15 +36,15 @@ layers:
   - {t: K, h: ⌥}
   - {t: L, h: ⇧}
   - {t: ;, h: ⌃}
-  - BACKSPACE
+  - ⌫
   - {t: ⌃, type: mod}
   - Z
   - X
   - C
   - V
   - B
-  - APOSTROPHE
-  - APOSTROPHE
+  - ''''
+  - ''''
   - N
   - M
   - ','
@@ -53,19 +53,19 @@ layers:
   - {t: ⇧, type: mod}
   - {t: ⌥, type: mod}
   - {t: ⌘, type: mod}
-  - Lower
+  - ▽ Lower
   - ␣
   - ⏎
-  - Raise
+  - △ Raise
   - ←
   - →
-  Lower:
-  - {t: BT, h: '0'}
-  - {t: BT, h: '1'}
-  - {t: BT, h: '2'}
+  ▽ Lower:
+  - {t: '0', h: BT}
+  - {t: '1', h: BT}
+  - {t: '2', h: BT}
   - ''
   - ''
-  - BT CLR
+  - {t: ✕, h: BT clear}
   - F7
   - F8
   - F9
@@ -118,7 +118,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  Raise:
+  △ Raise:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
