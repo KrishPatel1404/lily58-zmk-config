@@ -70,6 +70,10 @@ parse_config:
     SPACE: "␣"
     CAPS:  "⇪"
 
+    # NOTE: keymap-drawer does NOT parse ZMK sensor-bindings (encoders), so the
+    # left rotary encoder does not appear in the diagram — its actions are noted in
+    # the README instead. No encoder legends belong here.
+
     # --- Arrow cluster
     LEFT:  "←"
     DOWN:  "↓"

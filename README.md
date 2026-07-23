@@ -24,6 +24,7 @@
 | **Keycaps** | Blank Choc v1, all white — 8× convex 1u (thumbs), 2× homing 1u, 2× 1.5u, rest 1u |
 | **Batteries** | 2× 1800 mAh LIP1359 (PS3-controller replacement cells) — months per charge |
 | **Case** | Custom CAD-modeled faceplate + bottom shell, 3.25° typing angle, printed in white |
+| **Encoder** | 1× **EC12 rotary encoder, no push button** on the **left** half — hand-soldered to the left nice!nano v2's `P0.31` (A) + `P0.29` (B) pads, common to `GND` |
 
 ## 🗺️ Keymap
 
@@ -34,6 +35,8 @@
 </div>
 
 Homerow mods on A/S/D/F + J/K/L/; (Ctrl · Shift · Opt · Cmd, mirrored).
+
+Left encoder: **Base** = volume · **Lower** = brightness · **Raise** = page up/down.
 
 Edit with [ZMK Studio](https://zmk.studio), [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/), or [`config/lily58.keymap`](config/lily58.keymap).
 
