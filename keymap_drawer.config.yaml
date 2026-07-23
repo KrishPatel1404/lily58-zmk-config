@@ -23,6 +23,13 @@ draw_config:
     text.hold  { fill: #4f57c4; font-weight: bold; }
     /* --- Layer-activator legends (Lower/Raise): accent + bold, keep the underline link --- */
     text.layer-activator { fill: #0f7c6c; font-weight: bold; }
+    /* --- Rotary encoder stand-in: distinct violet + extra-round corners so it reads as a
+           KNOB, not a key. The ⟳ (top-right) + violet make it obvious across all layers. --- */
+    rect.encoder { fill: #ece6f6; stroke: #bcabde; stroke-width: 1.6; rx: 24; ry: 24; }
+    text.encoder { fill: #74609f; font-weight: bold; }
+    /* Big center icon (the knob's function) + a clearly-visible ⟳ rotary marker below. */
+    text.encoder.tap  { font-size: 1.7em; }
+    text.encoder.hold { font-size: 1.35em; }
     /* --- Footer: quiet it down --- */
     text.footer { fill: #8a8f96; }
 
@@ -31,6 +38,8 @@ draw_config:
       rect.held  { fill: #6b5327; stroke: #a9853f; }
       text.hold  { fill: #b4bbff; }
       text.layer-activator { fill: #58d6c3; }
+      rect.encoder { fill: #3a3350; stroke: #736a97; }
+      text.encoder { fill: #c6bce0; }
       text.footer { fill: #7e8489; }
     }
 
@@ -47,6 +56,16 @@ parse_config:
     "&bt BT_SEL 3": {t: "3", h: "BT"}
     "&bt BT_SEL 4": {t: "4", h: "BT"}
     "&bt BT_CLR":   {t: "✕", h: "BT clear"}
+
+    # ROTARY ENCODER stand-in. keymap-drawer can't draw sensor-bindings, so the left
+    # encoder is invisible. The physical encoder sits on this dead switch slot (EC12, no
+    # push button → the keycode never fires); it holds a representative keycode per layer
+    # so the diagram can show what the KNOB does. type "encoder" gets custom knob styling
+    # (svg_extra_style below). ⟳ = "this is the rotary encoder". These 3 keycodes appear
+    # ONLY at the encoder slot, so restyling them here can't hit any real key.
+    "&kp SCROLLLOCK":        {t: "⟳", h: "↕", type: "encoder"}  # Base  = scroll
+    "&kp C_BRIGHTNESS_AUTO": {t: "⟳", h: "☀", type: "encoder"}  # Lower = brightness
+    "&kp K_MUTE":            {t: "⟳", h: "♪", type: "encoder"}  # Raise = volume
 
   # NOTE: setting zmk_keycode_map REPLACES the built-in default map entirely (it does NOT
   # merge). So every symbol we want pretty must be listed here — the punctuation block below
@@ -92,9 +111,10 @@ parse_config:
     APOS:       "'"
     APOSTROPHE: "'"
 
-    # NOTE: keymap-drawer does NOT parse ZMK sensor-bindings (encoders), so the
-    # left rotary encoder does not appear in the diagram — its actions are noted in
-    # the README instead. No encoder legends belong here.
+    # NOTE: keymap-drawer does NOT parse ZMK sensor-bindings (encoders). Workaround:
+    # the physical encoder sits on a dead switch slot holding a representative keycode
+    # per layer (SCROLLLOCK / C_BRIGHTNESS_AUTO / K_MUTE) — those are restyled as a knob
+    # via raw_binding_map + the .encoder CSS class (see parse_config + svg_extra_style).
 
     # --- Arrow cluster
     LEFT:  "←"
