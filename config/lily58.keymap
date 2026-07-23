@@ -68,8 +68,8 @@
                                         &kp LALT     &kp LGUI     &mo 1   &kp SPACE         &kp RET         &mo 2   &kp LEFT     &kp RIGHT
             >;
 
-            // Left encoder (index 0): CW = volume up, CCW = volume down
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+            // Left encoder (index 0): CW = page down, CCW = page up
+            sensor-bindings = <&inc_dec_kp PG_DN PG_UP>;
         };
 
         lower_layer {
@@ -110,8 +110,8 @@
                         &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans
             >;
 
-            // Left encoder: CW = page down, CCW = page up
-            sensor-bindings = <&inc_dec_kp PG_DN PG_UP>;
+            // Left encoder: CW = volume up, CCW = volume down
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
     };
 };
