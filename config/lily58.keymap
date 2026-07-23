@@ -67,6 +67,9 @@
 &kp LCTRL   &kp Z         &kp X         &kp C        &kp V        &kp B   &kp APOSTROPHE    &kp APOSTROPHE  &kp N   &kp M        &kp COMMA    &kp DOT       &kp FSLH         &kp RSHFT
                                         &kp LALT     &kp LGUI     &mo 1   &kp SPACE         &kp RET         &mo 2   &kp LEFT     &kp RIGHT
             >;
+
+            // Left encoder (index 0): CW = volume up, CCW = volume down
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         lower_layer {
@@ -85,6 +88,9 @@
 &trans        &trans        &trans        &trans    &trans      &trans      &trans    &trans  &trans     &kp MINUS  &kp KP_PLUS      &kp LBRC  &kp RBRC  &kp PIPE
                                           &trans    &trans      &trans      &trans    &trans  &trans     &trans     &trans
             >;
+
+            // Left encoder: CW = brightness up, CCW = brightness down
+            sensor-bindings = <&inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
 
         raise_layer {
@@ -103,6 +109,9 @@
 &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
                         &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans
             >;
+
+            // Left encoder: CW = page down, CCW = page up
+            sensor-bindings = <&inc_dec_kp PG_DN PG_UP>;
         };
     };
 };
