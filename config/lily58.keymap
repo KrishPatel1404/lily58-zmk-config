@@ -69,7 +69,8 @@
             >;
 
             // Left encoder (index 0): CW = volume up, CCW = volume down
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+
+            sensor-bindings = <&inc_dec_kp C_BRIGHTNESS_INC C_BRIGHTNESS_DEC>;
         };
 
         lower_layer {
@@ -82,14 +83,15 @@
 
             display-name = "Lower";
             bindings = <
-&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &none     &none       &bt BT_CLR                    &kp F7     &kp F8     &kp F9           &kp F10   &kp F11   &kp F12
-&kp F1        &kp F2        &kp F3        &kp F4    &kp F5      &kp F6                        &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR  &kp RPAR  &kp TILDE
-&kp GRAVE     &kp EXCL      &kp AT        &kp HASH  &kp DOLLAR  &kp PRCNT                     &kp LEFT   &kp DOWN   &kp UP           &kp RIGHT &trans    &trans
-&trans        &trans        &trans        &trans    &trans      &trans      &trans    &trans  &trans     &kp MINUS  &kp KP_PLUS      &kp LBRC  &kp RBRC  &kp PIPE
+&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &none     &none       &bt BT_CLR                    &kp F7     &kp F8     &kp F9           &kp F10    &kp F11   &kp F12
+&kp F1        &kp F2        &kp F3        &kp F4    &kp F5      &kp F6                        &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR   &kp RPAR  &kp TILDE
+&kp GRAVE     &kp EXCL      &kp AT        &kp HASH  &kp DOLLAR  &kp PRCNT                     &kp LEFT   &kp DOWN   &kp UP           &kp RIGHT  &trans    &trans
+&trans        &trans        &trans        &trans    &trans      &trans      &trans    &trans  &trans     &kp MINUS  &kp KP_PLUS      &kp LBRC   &kp RBRC  &kp PIPE
                                           &trans    &trans      &trans      &trans    &trans  &trans     &trans     &trans
             >;
 
             // Left encoder: CW = brightness up, CCW = brightness down
+
             sensor-bindings = <&inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
 
@@ -111,7 +113,8 @@
             >;
 
             // Left encoder: CW = page down, CCW = page up
-            sensor-bindings = <&inc_dec_kp PG_DN PG_UP>;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
     };
 };
