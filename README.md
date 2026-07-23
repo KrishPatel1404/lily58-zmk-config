@@ -36,7 +36,7 @@
 
 Homerow mods on A/S/D/F + J/K/L/; (Ctrl · Shift · Opt · Cmd, mirrored).
 
-Left encoder: **Base** = mouse-wheel scroll · **Lower** = brightness · **Raise** = volume.
+Left encoder: **real mouse-wheel scroll** (all layers) — a `gpio-qdec` input device, not a keymap sensor. Trade-off on ZMK v0.3.0: an input-device encoder can't emit consumer keycodes, so knob brightness/volume are gone (a keymap-sensor encoder can do keycodes but not a true wheel — can't have both).
 
 Edit with [ZMK Studio](https://zmk.studio), [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/), or [`config/lily58.keymap`](config/lily58.keymap).
 
