@@ -13,11 +13,14 @@
     behaviors {
         // Encoder mouse-scroll: CW = param1, CCW = param2. Real HID scroll
         // (&msc), not PgUp/PgDn — works on macOS/Linux/Windows.
+        // tap-ms=70: &msc is velocity-based; a too-short tap accumulates <1
+        // wheel unit and scrolls nothing. Pairs with the &msc override below
+        // (time-to-max-speed-ms=0) so each tick hits full speed instantly.
         scroll_enc: scroll_encoder {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
             bindings = <&msc>, <&msc>;
-            tap-ms = <30>;
+            tap-ms = <70>;
         };
 
         // Homerow mods: tap = letter, hold = modifier.
@@ -126,4 +129,12 @@
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
     };
+};
+
+// Make encoder scroll actually move: stock &msc ramps velocity over
+// time-to-max-speed-ms=300, so a brief sensor tap scrolls ~nothing.
+// Force instant full speed + no start delay (label override, top level).
+&msc {
+    time-to-max-speed-ms = <0>;
+    delay-ms = <0>;
 };
