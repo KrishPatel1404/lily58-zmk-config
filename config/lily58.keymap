@@ -7,7 +7,6 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
-#include <zephyr/dt-bindings/input/input-event-codes.h>
 
 / {
     behaviors {
@@ -48,41 +47,26 @@
             hold-trigger-key-positions = <0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 31 32 33 34 36 37 38 39 40 41 42 50 51 52 53 54 55 56 57>;
         };
 
+        /*
+         * Encoder mouse-wheel via a CUSTOM behavior (in-repo module, src/behaviors/).
+         * Back on the layer-aware keymap-SENSOR path (stock EC11) so the knob can do
+         * scroll on Base AND brightness/volume on other layers — impossible with the
+         * gpio-qdec input-device route (mouse-HID only). &msct sends ONE discrete wheel
+         * tick per detent (sensor-rotate queues press+release per detent; our press emits
+         * a +1/-1 HID scroll report). Needs CONFIG_ZMK_POINTING=y for the mouse HID report.
+         * Wrong direction on macOS? swap the two params in the Base sensor-bindings.
+         */
+        msct: mouse_scroll_tick {
+            compatible = "zmk,behavior-mouse-scroll-tick";
+            #binding-cells = <1>;
+        };
+
+        inc_dec_scroll: inc_dec_scroll {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&msct>, <&msct>;
+        };
     };
-
-    /*
-     * Left rotary encoder as a REAL mouse-wheel — gpio-qdec INPUT device (not a keymap sensor).
-     * Why: on ZMK v0.3.0 a keymap-sensor encoder can only emit KEYCODES; &msc scroll fails on it
-     * (velocity-over-time behavior, an instantaneous detent = zero movement — verified in source).
-     * gpio-qdec emits native INPUT_REL_WHEEL, and the input-listener turns that into HID scroll
-     * (needs CONFIG_ZMK_POINTING=y). This drives the wheel on ALL layers — the trade-off is that
-     * per-layer brightness/volume are GONE (no consumer keycodes possible from an input device on
-     * v0.3.0). Encoder is on the LEFT = central, so the listener runs locally, no input-split.
-     * A/B on the nice!nano v2 pads P0.31 (pro_micro 21) / P0.29 (pro_micro 20), common leg GND.
-     * Wrong scroll direction on macOS? swap the two &pro_micro lines (or add `y-invert;` -> n/a here).
-     * Too fast/slow per detent? tune steps-per-period (2 = coarser, 4 = one event/detent).
-     */
-    left_qdec: left_qdec {
-        compatible = "gpio-qdec";
-        gpios = <&pro_micro 21 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>,   /* A = P0.31 */
-                <&pro_micro 20 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;   /* B = P0.29 */
-        steps-per-period = <4>;
-        zephyr,axis = <INPUT_REL_WHEEL>;
-        sample-time-us = <2000>;
-        idle-timeout-ms = <200>;
-    };
-
-    left_qdec_listener {
-        compatible = "zmk,input-listener";
-        device = <&left_qdec>;   /* pass wheel straight through as HID scroll */
-    };
-};
-
-/* Free P0.31/P0.29 for gpio-qdec: disable the stock EC11 keymap-sensor path. */
-&left_encoder { status = "disabled"; };
-&sensors      { status = "disabled"; };
-
-/ {
 
     keymap {
         compatible = "zmk,keymap";
@@ -103,7 +87,9 @@
 &kp LCTRL   &kp Z         &kp X         &kp C        &kp V        &kp B   &kp APOSTROPHE    &kp APOSTROPHE  &kp N   &kp M        &kp COMMA    &kp DOT       &kp FSLH         &kp RSHFT
                                         &kp LALT     &kp LGUI     &mo 1   &kp SPACE         &kp RET         &mo 2   &kp LEFT     &kp RIGHT
             >;
-            // Left encoder = real mouse-wheel scroll (see left_qdec above; not a keymap sensor).
+
+            // Left encoder: CW = scroll up, CCW = scroll down (discrete wheel ticks). Swap 1/(-1) to flip.
+            sensor-bindings = <&inc_dec_scroll 1 (-1)>;
         };
 
         lower_layer {
@@ -123,6 +109,8 @@
                                           &trans    &trans      &trans      &trans    &trans  &trans     &trans     &trans
             >;
 
+            // Left encoder: CW = brightness up, CCW = brightness down
+            sensor-bindings = <&inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
 
         raise_layer {
@@ -142,6 +130,8 @@
                         &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans
             >;
 
+            // Left encoder: CW = volume up, CCW = volume down
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
     };
 };

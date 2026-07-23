@@ -1,0 +1,9 @@
+# Makes this config repo a Zephyr/ZMK module so the custom behavior in src/behaviors
+# gets compiled. ZMK's build-user-config CI auto-adds the repo via -DZMK_EXTRA_MODULES
+# when this file exists. dts_root exposes dts/bindings/ (the custom behavior binding).
+name: lily58-zmk-config
+build:
+  cmake: .
+  kconfig: Kconfig
+  settings:
+    dts_root: .

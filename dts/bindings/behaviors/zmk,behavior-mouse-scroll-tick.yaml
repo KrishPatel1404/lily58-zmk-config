@@ -1,0 +1,11 @@
+# Copyright (c) 2026 Krish Patel
+# SPDX-License-Identifier: MIT
+
+description: |
+  Discrete mouse-wheel scroll tick. param1 = signed vertical wheel delta
+  (e.g. 1 = scroll up, -1 = scroll down). Emits one HID scroll report per press;
+  intended to be wrapped by a zmk,behavior-sensor-rotate(-var) on an encoder.
+
+compatible: "zmk,behavior-mouse-scroll-tick"
+
+include: one_param.yaml
