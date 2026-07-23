@@ -50,11 +50,15 @@
 
         // Encoder mouse-scroll: CW = scroll up, CCW = scroll down.
         // Custom sensor-rotate (non-var) wrapping &msc — inc_dec_kp can't wrap &msc, only &kp.
-        // Needs CONFIG_ZMK_POINTING=y. Mac natural-scroll may feel inverted: swap SCRL_UP/SCRL_DOWN.
+        // Needs CONFIG_ZMK_POINTING=y.
+        // NOTE: the default SCRL_UP/DN value (10) is TOO SMALL for an encoder — one detent is an
+        // instantaneous press+release, and macOS drops such tiny wheel deltas (v1: no scroll at all).
+        // Use a big explicit MOVE_Y instead so each tick registers. Tune 80 up/down to taste.
+        // Wrong direction (Mac "natural scrolling")? swap the two MOVE_Y signs.
         scroll_updown: scroll_updown {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
+            bindings = <&msc MOVE_Y(80)>, <&msc MOVE_Y(-80)>;
         };
     };
 
