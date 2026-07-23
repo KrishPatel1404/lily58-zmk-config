@@ -28,7 +28,13 @@ ZMK firmware config for **Krish's Typeractive Lily58 wireless split keyboard**. 
 
 ## Repo Architecture
 
-Core config is five files (below). PLUS an in-repo Zephyr module for the custom encoder-scroll behavior: `zephyr/module.yml` (presence makes CI add the repo via `-DZMK_EXTRA_MODULES`), root `CMakeLists.txt` + `Kconfig`, `src/behaviors/behavior_mouse_scroll_tick.c`, and `dts/bindings/behaviors/zmk,behavior-mouse-scroll-tick.yaml`. All are on the build.yml `paths` allowlist.
+Core config is five files (below). PLUS an in-repo Zephyr module for the custom encoder-scroll behavior: `zephyr/module.yml` (presence makes CI add the repo via `-DZMK_EXTRA_MODULES`), root `CMakeLists.txt`, `src/behaviors/behavior_mouse_scroll_tick.c`, and `dts/bindings/behaviors/zmk,behavior-mouse-scroll-tick.yaml`. All are on the build.yml `paths` allowlist. (No `Kconfig` — the module is cmake-only; the behavior is gated in CMakeLists on `CONFIG_ZMK_POINTING` + central-role.)
+
+### 🎚️ Encoder scroll — quick tuning (Krish may ask for this)
+Everything lives in `config/lily58.keymap`, Base layer's `sensor-bindings = <&inc_dec_scroll 1 (-1)>`:
+- **Scroll SPEED**: the two params ARE the per-detent wheel delta. `<1 (-1)>` = 1 line/detent. Faster = `<2 (-2)>`, `<3 (-3)>`, etc. (No C change needed — just the keymap number.)
+- **Scroll DIRECTION**: swap signs → `<(-1) 1>`.
+- These are keymap-only edits → push rebuilds → reflash LEFT only (encoder is central). To change what a *rotation* does structurally (e.g. horizontal scroll) edit the `.c` (`zmk_hid_mouse_scroll_set(hwheel, wheel)` — currently drives `wheel`/vertical).
 
 Five files do everything:
 

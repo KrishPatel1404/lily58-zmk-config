@@ -1,3 +1,0 @@
-# No custom Kconfig symbols: the mouse-scroll-tick behavior is instantiated from
-# devicetree and gated in CMakeLists on CONFIG_ZMK_POINTING (set in config/lily58.conf).
-# This file exists only because zephyr/module.yml references it as the module Kconfig root.

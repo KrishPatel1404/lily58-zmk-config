@@ -40,6 +40,18 @@ Left encoder: **Base** = mouse-wheel scroll · **Lower** = brightness · **Raise
 
 Edit with [ZMK Studio](https://zmk.studio), [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/), or [`config/lily58.keymap`](config/lily58.keymap).
 
+## 🖱️ Custom behavior: `mouse-scroll-tick`
+
+ZMK v0.3 has no way to make a rotary encoder scroll a mouse wheel: the built-in `&msc` is velocity-over-time, so an instantaneous detent produces zero movement. So this repo ships a tiny custom behavior — which also makes the repo a Zephyr module (CI compiles it automatically):
+
+```
+src/behaviors/behavior_mouse_scroll_tick.c    # emits one HID wheel tick per press
+dts/bindings/behaviors/…mouse-scroll-tick.yaml # its devicetree binding
+zephyr/module.yml + CMakeLists.txt             # makes the repo a ZMK module
+```
+
+`&msct` sends a single scroll report per encoder detent; it's wrapped by a `sensor-rotate-var` (`&inc_dec_scroll`) and bound per layer alongside the stock brightness/volume behaviors, so one knob does all three. **Scroll speed** = the two params in the Base layer's `sensor-bindings = <&inc_dec_scroll 1 (-1)>` (bigger = faster); **direction** = swap the signs. Only builds on the central (left) half, where HID output lives.
+
 ## 🔨 Building & Flashing
 
 Firmware-relevant pushes build in CI ([ZMK v0.3](https://github.com/zmkfirmware/zmk/releases)); successful main builds auto-publish to [**Releases**](../../releases).
