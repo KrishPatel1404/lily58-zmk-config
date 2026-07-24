@@ -50,12 +50,12 @@ parse_config:
   # zmk_keycode_map can't reach them). Bluetooth: profile number on top, "BT" below;
   # clear gets a ✕. Unicode only (no fragile $$mdi:$$ glyphs), per the note above.
   raw_binding_map:
-    "&bt BT_SEL 0": {t: "0", h: "BT"}
-    "&bt BT_SEL 1": {t: "1", h: "BT"}
-    "&bt BT_SEL 2": {t: "2", h: "BT"}
-    "&bt BT_SEL 3": {t: "3", h: "BT"}
-    "&bt BT_SEL 4": {t: "4", h: "BT"}
-    "&bt BT_CLR":   {t: "✕", h: "BT clear"}
+    "&bt BT_SEL 0": "BT 0"
+    "&bt BT_SEL 1": "BT 1"
+    "&bt BT_SEL 2": "BT 2"
+    "&bt BT_SEL 3": "BT 3"
+    "&bt BT_SEL 4": "BT 4"
+    "&bt BT_CLR":   "BT ✕"
 
     # ROTARY ENCODER stand-in. keymap-drawer can't draw sensor-bindings, so the left
     # encoder is invisible. The physical encoder sits on this dead switch slot (EC12, no
