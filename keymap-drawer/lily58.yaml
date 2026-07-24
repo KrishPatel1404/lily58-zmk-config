@@ -43,7 +43,7 @@ layers:
   - C
   - V
   - B
-  - SCROLLLOCK
+  - {t: ⟳, h: ↕, type: encoder}
   - ''''
   - N
   - M
@@ -102,7 +102,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - BRIGHTNESS AUTO
+  - {t: ⟳, h: ☀, type: encoder}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - '-'
@@ -161,7 +161,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - MUTE
+  - {t: ⟳, h: ♪, type: encoder}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}

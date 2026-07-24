@@ -143,6 +143,13 @@ rect.held  { fill: #fdeecf; stroke: #eccf93; }
 text.hold  { fill: #4f57c4; font-weight: bold; }
 /* --- Layer-activator legends (Lower/Raise): accent + bold, keep the underline link --- */
 text.layer-activator { fill: #0f7c6c; font-weight: bold; }
+/* --- Rotary encoder stand-in: distinct violet + extra-round corners so it reads as a
+       KNOB, not a key. The ⟳ (top-right) + violet make it obvious across all layers. --- */
+rect.encoder { fill: #ece6f6; stroke: #bcabde; stroke-width: 1.6; rx: 24; ry: 24; }
+text.encoder { fill: #74609f; font-weight: bold; }
+/* Big center icon (the knob's function) + a clearly-visible ⟳ rotary marker below. */
+text.encoder.tap  { font-size: 1.7em; }
+text.encoder.hold { font-size: 1.35em; }
 /* --- Footer: quiet it down --- */
 text.footer { fill: #8a8f96; }
 
@@ -151,6 +158,8 @@ text.footer { fill: #8a8f96; }
   rect.held  { fill: #6b5327; stroke: #a9853f; }
   text.hold  { fill: #b4bbff; }
   text.layer-activator { fill: #58d6c3; }
+  rect.encoder { fill: #3a3350; stroke: #736a97; }
+  text.encoder { fill: #c6bce0; }
   text.footer { fill: #7e8489; }
 }
 </style>
@@ -333,9 +342,10 @@ text.footer { fill: #8a8f96; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">B</text>
 </g>
-<g transform="translate(364, 182)" class="key keypos-42">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap"><tspan style="font-size: 70%">SCROLLLOCK</tspan></text>
+<g transform="translate(364, 182)" class="key encoder keypos-42">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key encoder"/>
+<text x="0" y="0" class="key encoder tap">⟳</text>
+<text x="0" y="24" class="key encoder hold">↕</text>
 </g>
 <g transform="translate(560, 182)" class="key keypos-43">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -578,11 +588,10 @@ text.footer { fill: #8a8f96; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(364, 182)" class="key keypos-42">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em" style="font-size: 70%">BRIGHTNESS</tspan><tspan x="0" dy="1.2em" style="font-size: 70%">AUTO</tspan>
-</text>
+<g transform="translate(364, 182)" class="key encoder keypos-42">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key encoder"/>
+<text x="0" y="0" class="key encoder tap">⟳</text>
+<text x="0" y="24" class="key encoder hold">☀</text>
 </g>
 <g transform="translate(560, 182)" class="key trans keypos-43">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
@@ -816,9 +825,10 @@ text.footer { fill: #8a8f96; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(364, 182)" class="key keypos-42">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">MUTE</text>
+<g transform="translate(364, 182)" class="key encoder keypos-42">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key encoder"/>
+<text x="0" y="0" class="key encoder tap">⟳</text>
+<text x="0" y="24" class="key encoder hold">♪</text>
 </g>
 <g transform="translate(560, 182)" class="key trans keypos-43">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
