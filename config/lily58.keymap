@@ -105,7 +105,7 @@
             // |       |     |     |      |      |      |        |  |       |      |  _    |  +    |  {   |   }   |  "|"  |
             //                     |      |      |      |        |  |       |      |       |       |
 
-            display-name = "▽";
+            display-name = "▼";
             bindings = <
 &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &none     &none       &bt BT_CLR                                   &kp F7     &kp F8     &kp F9           &kp F10    &kp F11   &kp F12
 &kp F1        &kp F2        &kp F3        &kp F4    &kp F5      &kp F6                                       &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR   &kp RPAR  &kp TILDE
@@ -127,7 +127,7 @@
             // |   F7  |  F8 |  F9 |  F10 |  F11 |  F12 |        |  |       |  +   |   -   |   =   |  [   |   ]   |   \   |
             //                     |      |      |      |        |  |       |      |       |       |
 
-            display-name = "△";
+            display-name = "▲";
             bindings = <
 &trans  &trans  &trans  &trans  &trans  &trans                        &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans                        &trans  &trans  &trans  &trans  &trans  &trans
