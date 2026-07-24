@@ -59,7 +59,7 @@ layers:
   - ▲
   - ←
   - →
-  ▼:
+  Lower:
   - BT 0
   - BT 1
   - BT 2
@@ -94,86 +94,86 @@ layers:
   - ↓
   - ↑
   - →
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
   - {t: ⟳, h: ☀, type: encoder}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
   - '-'
   - +
   - '{'
   - '}'
   - '|'
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
   - {type: held}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  ▲:
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  Raise:
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
   - {t: ⟳, h: ♪, type: encoder}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
   - {type: held}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
