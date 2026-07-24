@@ -46,6 +46,18 @@ draw_config:
 parse_config:
   zmk_remove_keycode_prefix: ["C_"] # render media keys without the C_ prefix
 
+  # &trans glyph. Default is ▽ — clashed visually with the ▼ Lower layer-activator, so
+  # use □ (empty square = "pass through / nothing here") to keep them distinct.
+  # MUST stay a dict with `type: trans` — that tag adds class="key trans" (the faded/grey
+  # styling); a plain string drops it and trans keys render like normal active keys.
+  trans_legend: {t: "□", type: trans}
+
+  # Layer header + activator legends in the diagram. Keymap display-names are the words
+  # Lower/Raise (readable on the OLED); the drawer shows the compact icon instead.
+  layer_legend_map:
+    Lower: "▼"
+    Raise: "▲"
+
   # raw_binding_map: prettify whole behavior bindings (params aren't keycodes, so
   # zmk_keycode_map can't reach them). Bluetooth: profile number on top, "BT" below;
   # clear gets a ✕. Unicode only (no fragile $$mdi:$$ glyphs), per the note above.
