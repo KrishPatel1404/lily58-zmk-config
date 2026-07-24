@@ -60,12 +60,12 @@ layers:
   - ←
   - →
   ▽ Lower:
-  - {t: '0', h: BT}
-  - {t: '1', h: BT}
-  - {t: '2', h: BT}
+  - BT 0
+  - BT 1
+  - BT 2
   - ''
   - ''
-  - {t: ✕, h: BT clear}
+  - BT ✕
   - F7
   - F8
   - F9
