@@ -53,13 +53,13 @@ layers:
   - {t: ⇧, type: mod}
   - {t: ⌥, type: mod}
   - {t: ⌘, type: mod}
-  - ▽
+  - ▼
   - ␣
   - ⏎
-  - △
+  - ▲
   - ←
   - →
-  ▽:
+  ▼:
   - BT 0
   - BT 1
   - BT 2
@@ -118,7 +118,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  △:
+  ▲:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
