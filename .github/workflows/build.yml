@@ -4,11 +4,6 @@ on:
       - "config/**"
       - "build.yaml"
       - ".github/workflows/build.yml"
-      # In-repo Zephyr module: custom mouse-scroll-tick behavior (compiled into firmware)
-      - "zephyr/module.yml"
-      - "CMakeLists.txt"
-      - "src/**"
-      - "dts/**"
   pull_request:
   workflow_dispatch:
 

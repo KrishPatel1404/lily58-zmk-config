@@ -36,21 +36,9 @@
 
 Homerow mods on A/S/D/F + J/K/L/; (Ctrl · Shift · Opt · Cmd, mirrored).
 
-Left encoder: **Base** = mouse-wheel scroll · **Lower** = brightness · **Raise** = volume. Scroll uses a small custom in-repo behavior (`&msct`, `src/behaviors/`) that emits one discrete HID wheel tick per detent — the built-in `&msc` can't scroll on an encoder (velocity-based; an instant detent = zero movement), and the `gpio-qdec` input-device route gives a smoother wheel but can't also do brightness/volume on v0.3.0. This keeps all three on the layer-aware keymap sensor.
+Left encoder: **Base** = page up/down · **Lower** = brightness · **Raise** = volume.
 
 Edit with [ZMK Studio](https://zmk.studio), [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/), or [`config/lily58.keymap`](config/lily58.keymap).
-
-## 🖱️ Custom behavior: `mouse-scroll-tick`
-
-ZMK v0.3 has no way to make a rotary encoder scroll a mouse wheel: the built-in `&msc` is velocity-over-time, so an instantaneous detent produces zero movement. So this repo ships a tiny custom behavior — which also makes the repo a Zephyr module (CI compiles it automatically):
-
-```
-src/behaviors/behavior_mouse_scroll_tick.c    # emits one HID wheel tick per press
-dts/bindings/behaviors/…mouse-scroll-tick.yaml # its devicetree binding
-zephyr/module.yml + CMakeLists.txt             # makes the repo a ZMK module
-```
-
-`&msct` sends a single scroll report per encoder detent; it's wrapped by a `sensor-rotate-var` (`&inc_dec_scroll`) and bound per layer alongside the stock brightness/volume behaviors, so one knob does all three. **Scroll speed** = the two params in the Base layer's `sensor-bindings = <&inc_dec_scroll 1 (-1)>` (bigger = faster); **direction** = swap the signs. Only builds on the central (left) half, where HID output lives.
 
 ## 🔨 Building & Flashing
 
@@ -78,14 +66,8 @@ Firmware-relevant pushes build in CI ([ZMK v0.3](https://github.com/zmkfirmware/
 build.yaml                    # build matrix: left/right + nice!view (+ Studio snippet), settings_reset
 config/
   lily58.keymap               # layers, homerow mods, encoder sensor-bindings
-  lily58.conf                 # Kconfig: deep sleep (30 min), BT power, debounce, Studio, pointing
+  lily58.conf                 # Kconfig: deep sleep (30 min), BT power, debounce, Studio
   west.yml                    # ZMK pinned to v0.3 + zmk-nice-oled widget module
-src/behaviors/
-  behavior_mouse_scroll_tick.c   # custom behavior: one HID scroll tick per encoder detent
-dts/bindings/behaviors/
-  zmk,behavior-mouse-scroll-tick.yaml   # its devicetree binding
-zephyr/module.yml             # makes this repo a ZMK module (CI auto-compiles the behavior)
-CMakeLists.txt                # builds the behavior into ZMK's app (central half only)
 keymap_drawer.config.yaml     # keymap diagram styling
 keymap-drawer/                # auto-generated keymap SVG/YAML (CI output)
 .github/workflows/

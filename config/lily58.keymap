@@ -47,26 +47,6 @@
             hold-trigger-key-positions = <0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 31 32 33 34 36 37 38 39 40 41 42 50 51 52 53 54 55 56 57>;
         };
 
-        /*
-         * Encoder mouse-wheel via a CUSTOM behavior (in-repo module, src/behaviors/).
-         * Back on the layer-aware keymap-SENSOR path (stock EC11) so the knob can do
-         * scroll on Base AND brightness/volume on other layers — impossible with the
-         * gpio-qdec input-device route (mouse-HID only). &msct sends ONE discrete wheel
-         * tick per detent (sensor-rotate queues press+release per detent; our press emits
-         * a +1/-1 HID scroll report). Needs CONFIG_ZMK_POINTING=y for the mouse HID report.
-         * Wrong direction on macOS? swap the two params in the Base sensor-bindings.
-         */
-
-        msct: mouse_scroll_tick {
-            compatible = "zmk,behavior-mouse-scroll-tick";
-            #binding-cells = <1>;
-        };
-
-        inc_dec_scroll: inc_dec_scroll {
-            compatible = "zmk,behavior-sensor-rotate-var";
-            #sensor-binding-cells = <2>;
-            bindings = <&msct>, <&msct>;
-        };
     };
 
     keymap {
@@ -89,12 +69,9 @@
                                         &kp LALT     &kp LGUI     &mo 1   &kp SPACE         &kp RET         &mo 2   &kp LEFT     &kp RIGHT
             >;
 
-            // Left encoder: CW = scroll up, CCW = scroll down (discrete wheel ticks).
-            //   SCROLL SPEED: the two params ARE the per-detent wheel delta. <1 (-1)> = 1 line
-            //     per detent. Bump to <2 (-2)>, <3 (-3)>, ... for faster scroll.
-            //   DIRECTION: swap the signs -> <(-1) 1> to invert.
+            // Left encoder: CW = page down, CCW = page up
 
-            sensor-bindings = <&inc_dec_scroll (-2) 2>;
+            sensor-bindings = <&inc_dec_kp PG_DN PG_UP>;
         };
 
         lower_layer {
