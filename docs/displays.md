@@ -3,10 +3,16 @@
 Reference for the two nice!view screens on Krish's Lily58. Covers the hardware,
 where the code lives, what shows now, and every widget you can turn on.
 
-> **Source of truth**: the `zmk-nice-oled` module, pinned by commit sha in
-> `config/west.yml` (`46f824abb2bd41f1287c5c68abd14122af6042a3`). This doc was
-> generated from that exact commit's `Kconfig.defconfig`. If you bump the sha,
-> re-check the flag list — options change between commits.
+> ⚠️ **NOT CURRENTLY IN USE (since 2026-07-30).** The config was reset to the
+> stock Typeractive baseline: shields are `nice_view_adapter nice_view` and the
+> `zmk-nice-oled` module is no longer in `config/west.yml`. The screens now show
+> ZMK's built-in nice!view status widget. Everything below stays as a **recipe
+> for re-adding** the module — nothing here describes the current firmware.
+>
+> **Source of truth when it was in use**: the `zmk-nice-oled` module, pinned by
+> commit sha in `config/west.yml` (`46f824abb2bd41f1287c5c68abd14122af6042a3`).
+> This doc was generated from that exact commit's `Kconfig.defconfig`. If you
+> bump the sha, re-check the flag list — options change between commits.
 
 ---
 

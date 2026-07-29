@@ -19,7 +19,7 @@
 |---|---|
 | **Keyboard** | [Typeractive Lily58 wireless](https://typeractive.xyz/products/lily58-partially-assembled-pcb) — 58-key column-staggered split (6×4+4 per half), designed by [kata0510](https://github.com/kata0510/Lily58) |
 | **Controllers** | 2× [nice!nano v2](https://nicekeyboards.com/docs/nice-nano/) (nRF52840, BLE 5, UF2 bootloader) |
-| **Displays** | 2× [nice!view](https://nicekeyboards.com/docs/nice-view/) — Sharp memory-in-pixel LCD, ~1000× less power than OLED. Custom widgets via [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled): live modifier indicators, battery, layer, peripheral animation |
+| **Displays** | 2× [nice!view](https://nicekeyboards.com/docs/nice-view/) — Sharp memory-in-pixel LCD, ~1000× less power than OLED. Stock ZMK `nice_view` widget (battery, output/profile, layer, WPM) |
 | **Switches** | 60× Kailh **Choc Sunset** tactile — 40 gf actuation, 55 gf bump, 3.0 mm travel, factory-lubed |
 | **Keycaps** | Blank Choc v1, all white — 8× convex 1u (thumbs), 2× homing 1u, 2× 1.5u, rest 1u |
 | **Batteries** | 2× 1800 mAh LIP1359 (PS3-controller replacement cells) — months per charge |
@@ -34,9 +34,9 @@
 
 </div>
 
-Homerow mods on A/S/D/F + J/K/L/; (Ctrl · Shift · Opt · Cmd, mirrored).
+Stock Typeractive keymap — 3 layers (Base / Lower / Raise), no homerow mods, no combos.
 
-Left encoder: **Base** = page up/down · **Lower** = brightness · **Raise** = volume.
+Left encoder (the violet ⟳ key): **Base** = page up/down · **Lower** = brightness · **Raise** = volume.
 
 Edit with [ZMK Studio](https://zmk.studio), [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/), or [`config/lily58.keymap`](config/lily58.keymap).
 
@@ -54,8 +54,8 @@ Firmware-relevant pushes build in CI ([ZMK v0.3](https://github.com/zmkfirmware/
 
 ## 🔋 Battery Notes
 
-- [ZMK power profiler](https://zmk.dev/power-profiler) estimate (1800 mAh, nice!view, 2 BLE profiles, 30% asleep): **central ~4 months (±4 wks)**, **peripheral ~1 year (±3 mo)** per charge.
-- Deep sleep after 30 min idle (~20 µA); first keypress reconnects in ~2 s.
+- Both halves report their own battery on their own screen; the left half also proxies the right half's level to the host, so macOS shows both under Bluetooth.
+- **Deep sleep is off** and the BLE connection is pinned to a 7.5 ms interval with no skipped events (lowest latency ZMK can ask for) — so real runtime is well under the [power profiler](https://zmk.dev/power-profiler)'s ~4 months central / ~1 year peripheral estimate. Raise `CONFIG_BT_PERIPHERAL_PREF_LATENCY` in `lily58.conf` to trade latency back for runtime.
 - Charges via USB-C at 100 mA — full charge takes overnight.
 
 **⚠️ Battery safety:** replacement-pack polarity isn't standardized — multimeter-verify red/+ lands on **B+** before connecting (reversed = dead board, fire risk). nice!nano has no low-voltage cutoff; use packs with a protection circuit.
@@ -65,9 +65,9 @@ Firmware-relevant pushes build in CI ([ZMK v0.3](https://github.com/zmkfirmware/
 ```
 build.yaml                    # build matrix: left/right + nice!view (+ Studio snippet), settings_reset
 config/
-  lily58.keymap               # layers, homerow mods, encoder sensor-bindings
-  lily58.conf                 # Kconfig: deep sleep (30 min), BT power, debounce, Studio
-  west.yml                    # ZMK pinned to v0.3 + zmk-nice-oled widget module
+  lily58.keymap               # layers + encoder sensor-bindings (stock Typeractive)
+  lily58.conf                 # Kconfig: BT power + low-latency conn, debounce, display, battery, Studio, encoder
+  west.yml                    # ZMK pinned to v0.3
 keymap_drawer.config.yaml     # keymap diagram styling
 keymap-drawer/                # auto-generated keymap SVG/YAML (CI output)
 .github/workflows/

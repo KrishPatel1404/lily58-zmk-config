@@ -20,7 +20,7 @@ jobs:
       contents: write
     steps:
       - name: Download firmware artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: firmware
           path: firmware
@@ -49,7 +49,7 @@ jobs:
           echo "subject=$(printf '%s' "${HEAD_MSG:-Manual build}" | head -1)" >> "$GITHUB_OUTPUT"
 
       - name: Create release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.meta.outputs.tag }}
           name: "${{ steps.meta.outputs.date }}"
