@@ -1,6 +1,11 @@
 # keymap-drawer config — https://github.com/caksoylar/keymap-drawer
 # Renders config/lily58.keymap -> keymap-drawer/lily58.svg in CI (draw-keymaps.yml).
 # Run `keymap dump-config` locally to see every available option and its default.
+#
+# ⚠️ Hand-written — the lily58.svg / lily58.yaml beside it are CI-generated, don't edit those.
+# ⚠️ This file is NOT auto-detected: keymap-drawer only auto-finds `keymap_drawer.config.yaml`
+#    at the repo ROOT. It must be passed explicitly (`-c` locally, `config_path:` in the
+#    workflow) — omit it and the render silently falls back to library defaults.
 
 draw_config:
   dark_mode: auto # SVG follows the viewer's light/dark preference (GitHub README friendly)

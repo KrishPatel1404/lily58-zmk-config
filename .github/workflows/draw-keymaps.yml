@@ -6,7 +6,7 @@ on:
     paths:
       - "config/*.keymap"
       - "config/*.dtsi"
-      - "keymap_drawer.config.yaml"
+      - "keymap-drawer/config.yaml"
       - ".github/workflows/draw-keymaps.yml"
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
       contents: write # commits the generated SVG/YAML back to the repo
     with:
       keymap_patterns: "config/*.keymap"
-      config_path: "keymap_drawer.config.yaml"
+      config_path: "keymap-drawer/config.yaml"
       output_folder: "keymap-drawer"
       commit_message: "keymap-drawer render"
       amend_commit: false

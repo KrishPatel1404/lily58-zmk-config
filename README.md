@@ -68,8 +68,9 @@ config/
   lily58.keymap               # layers + encoder sensor-bindings (stock Typeractive)
   lily58.conf                 # Kconfig: BT power + low-latency conn, debounce, display, battery, Studio, encoder
   west.yml                    # ZMK pinned to v0.3
-keymap_drawer.config.yaml     # keymap diagram styling
-keymap-drawer/                # auto-generated keymap SVG/YAML (CI output)
+keymap-drawer/
+  config.yaml                 # keymap diagram styling (hand-written)
+  lily58.svg / lily58.yaml    # auto-generated diagram (CI output — don't hand-edit)
 .github/workflows/
   build.yml                   # CI → zmkfirmware reusable build workflow
   draw-keymaps.yml            # CI → keymap-drawer diagram render
