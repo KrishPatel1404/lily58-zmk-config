@@ -36,7 +36,7 @@
 
 3 layers (Base / Lower / Raise) + 3 reserved slots for adding layers live in ZMK Studio.
 
-Homerow mods on S/D/F + J/K/L (Shift · Opt · Cmd, mirrored — no pinky mods) — for shortcut chords, not capitals: ⌘⇧ and ⌥⇧ stack on either hand (hold J+L, tap T = ⌘⇧T). Timeless recipe, zero added delay while typing at speed; capitals come from the dedicated Shift keys.
+Homerow mods on A/S/D/F + J/K/L/; (Ctrl · Shift · Opt · Cmd, mirrored) — timeless recipe, zero added delay while typing at speed. Same-hand stacking is limited to **⌘⇧ and ⌥⇧** (hold J+L, tap T = ⌘⇧T); other pairs need one mod per hand. Capitals come from the dedicated Shift keys.
 
 Left encoder (the violet ⟳ key): **Base** = page up/down · **Lower** = brightness · **Raise** = volume.
 
