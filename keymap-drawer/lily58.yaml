@@ -1,7 +1,7 @@
 layout: {zmk_keyboard: lily58}
 layers:
   Base:
-  - ⎋
+  - '`'
   - '1'
   - '2'
   - '3'
@@ -12,7 +12,7 @@ layers:
   - '8'
   - '9'
   - '0'
-  - '`'
+  - '='
   - ⇥
   - Q
   - W
@@ -25,7 +25,7 @@ layers:
   - O
   - P
   - '-'
-  - {t: ⌃, type: mod}
+  - ⎋
   - A
   - S
   - D
@@ -36,15 +36,15 @@ layers:
   - K
   - L
   - ;
-  - ''''
-  - {t: ⇧, type: mod}
+  - ⌫
+  - {t: ⌃, type: mod}
   - Z
   - X
   - C
   - V
   - B
   - {t: ⟳, h: ↕, type: encoder}
-  - ']'
+  - ''''
   - N
   - M
   - ','
@@ -57,45 +57,45 @@ layers:
   - ␣
   - ⏎
   - ▲
-  - ⌫
-  - {t: ⌘, type: mod}
+  - ←
+  - →
   Lower:
-  - BT ✕
   - BT 0
   - BT 1
   - BT 2
-  - BT 3
-  - BT 4
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - F1
-  - F2
-  - F3
-  - F4
-  - F5
-  - F6
+  - ''
+  - ''
+  - BT ✕
   - F7
   - F8
   - F9
   - F10
   - F11
   - F12
-  - '`'
-  - '!'
-  - '@'
-  - '#'
-  - $
-  - '%'
+  - F1
+  - F2
+  - F3
+  - F4
+  - F5
+  - F6
   - ^
   - '&'
   - ×
   - (
   - )
   - '~'
+  - '`'
+  - '!'
+  - '@'
+  - '#'
+  - $
+  - '%'
+  - ←
+  - ↓
+  - ↑
+  - →
+  - {t: □, type: trans}
+  - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
@@ -131,44 +131,44 @@ layers:
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
-  - '`'
-  - '1'
-  - '2'
-  - '3'
-  - '4'
-  - '5'
-  - '6'
-  - '7'
-  - '8'
-  - '9'
-  - '0'
   - {t: □, type: trans}
-  - F1
-  - F2
-  - F3
-  - F4
-  - F5
-  - F6
   - {t: □, type: trans}
-  - ←
-  - ↓
-  - ↑
-  - →
   - {t: □, type: trans}
-  - F7
-  - F8
-  - F9
-  - F10
-  - F11
-  - F12
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
   - {t: ⟳, h: ♪, type: encoder}
   - {t: □, type: trans}
-  - +
-  - '-'
-  - '='
-  - '['
-  - ']'
-  - \
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}

@@ -34,7 +34,7 @@
 
 </div>
 
-Stock Typeractive keymap — 3 layers (Base / Lower / Raise), no homerow mods, no combos.
+3 layers (Base / Lower / Raise) + 3 reserved slots for adding layers live in ZMK Studio. No homerow mods, no combos.
 
 Left encoder (the violet ⟳ key): **Base** = page up/down · **Lower** = brightness · **Raise** = volume.
 
@@ -65,8 +65,9 @@ Firmware-relevant pushes build in CI ([ZMK v0.3](https://github.com/zmkfirmware/
 ```
 build.yaml                    # build matrix: left/right + nice!view (+ Studio snippet), settings_reset
 config/
-  lily58.keymap               # layers + encoder sensor-bindings (stock Typeractive)
+  lily58.keymap               # layers + encoder sensor-bindings
   lily58.conf                 # Kconfig: BT power + low-latency conn, debounce, display, battery, Studio, encoder
+  lily58_left.conf            # central-half only: 3 BLE host profiles
   west.yml                    # ZMK pinned to v0.3
 keymap-drawer/
   config.yaml                 # keymap diagram styling (hand-written)
