@@ -19,7 +19,7 @@
 |---|---|
 | **Keyboard** | [Typeractive Lily58 wireless](https://typeractive.xyz/products/lily58-partially-assembled-pcb) — 58-key column-staggered split (6×4+4 per half), designed by [kata0510](https://github.com/kata0510/Lily58) |
 | **Controllers** | 2× [nice!nano v2](https://nicekeyboards.com/docs/nice-nano/) (nRF52840, BLE 5, UF2 bootloader) |
-| **Displays** | 2× [nice!view](https://nicekeyboards.com/docs/nice-view/) — Sharp memory-in-pixel LCD, ~1000× less power than OLED. Stock ZMK `nice_view` widget (battery, output/profile, layer, WPM) |
+| **Displays** | 2× [nice!view](https://nicekeyboards.com/docs/nice-view/) — Sharp memory-in-pixel LCD, 160×68, 1-bit, ~1000× less power than OLED. Custom widgets via [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled) |
 | **Switches** | 60× Kailh **Choc Sunset** tactile — 40 gf actuation, 55 gf bump, 3.0 mm travel, factory-lubed |
 | **Keycaps** | Blank Choc v1, all white — 8× convex 1u (thumbs), 2× homing 1u, 2× 1.5u, rest 1u |
 | **Batteries** | 2× 1800 mAh LIP1359 (PS3-controller replacement cells) — months per charge |
@@ -41,6 +41,18 @@ Homerow mods on A/S/D/F + J/K/L/; (Ctrl · Shift · Opt · Cmd, mirrored) — ti
 Left encoder (the violet ⟳ key): **Base** = page up/down · **Lower** = brightness · **Raise** = volume.
 
 Edit with [ZMK Studio](https://zmk.studio), [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/), or [`config/lily58.keymap`](config/lily58.keymap).
+
+## 🖥️ Displays
+
+Both nice!views run [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled)'s `nice_epaper` shield instead of ZMK's stock widget, pinned by commit sha in [`config/west.yml`](config/west.yml).
+
+**Left (central):** battery · USB/BT output + profile dots · **live modifier indicators** (⌘ ⌥ ⇧ ⌃ as real macOS glyphs, so you can see the homerow mods as you hold them) · WPM speedometer · CapsLock · current layer name.
+
+**Right (peripheral):** battery + a looping cat animation. Swap it for spaceman, pokemon, head, gem, or a still image in [`config/lily58_right.conf`](config/lily58_right.conf) — the priority order there is load-bearing, read the comments.
+
+Deliberately off: Luna the dog and Bongo Cat (upstream [issue #30](https://github.com/mctechnology17/zmk-nice-oled/issues/30) — on nice!view they freeze while typing whenever the modifier row is on, so it's one or the other), the responsive bongo cat (doesn't link), smart battery, and Raw HID.
+
+Every flag, every trap, and how custom artwork would work: [`docs/zmk-nice-oled.md`](docs/zmk-nice-oled.md).
 
 ## 🔨 Building & Flashing
 
@@ -69,8 +81,9 @@ build.yaml                    # build matrix: left/right + nice!view (+ Studio s
 config/
   lily58.keymap               # layers + encoder sensor-bindings
   lily58.conf                 # Kconfig: BT power + low-latency conn, debounce, display, battery, Studio, encoder
-  lily58_left.conf            # central-half only: 3 BLE host profiles
-  west.yml                    # ZMK pinned to v0.3
+  lily58_left.conf            # central-half only: 3 BLE host profiles + central screen widgets
+  lily58_right.conf           # peripheral-half only: which animation the right screen runs
+  west.yml                    # ZMK pinned to v0.3 + the zmk-nice-oled module pinned by sha
 keymap-drawer/
   config.yaml                 # keymap diagram styling (hand-written)
   lily58.svg / lily58.yaml    # auto-generated diagram (CI output — don't hand-edit)
