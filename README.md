@@ -74,6 +74,8 @@ config/
 keymap-drawer/
   config.yaml                 # keymap diagram styling (hand-written)
   lily58.svg / lily58.yaml    # auto-generated diagram (CI output — don't hand-edit)
+docs/
+  displays.md                 # nice!view widget reference + re-add recipe (not in use)
 .github/workflows/
   build.yml                   # CI → zmkfirmware reusable build workflow
   draw-keymaps.yml            # CI → keymap-drawer diagram render
