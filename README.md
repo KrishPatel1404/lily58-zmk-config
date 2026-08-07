@@ -46,11 +46,13 @@ Edit with [ZMK Studio](https://zmk.studio), [Keymap Editor](https://nickcoutsos.
 
 Both nice!views run [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled)'s `nice_epaper` shield instead of ZMK's stock widget, pinned by commit sha in [`config/west.yml`](config/west.yml).
 
-**Left (central):** battery · USB/BT output + profile dots · **live modifier indicators** (⌘ ⌥ ⇧ ⌃ as real macOS glyphs, so you can see the homerow mods as you hold them) · WPM speedometer · CapsLock · current layer name.
+**Left (central):** battery · USB/BT output + profile dots · **live modifier indicators** (⌘ ⌥ ⇧ ⌃ as real macOS glyphs in a 2×2 box, so you can see the homerow mods as you hold them) · current layer name.
 
 **Right (peripheral):** battery + a looping cat animation. Swap it for spaceman, pokemon, head, gem, or a still image in [`config/lily58_right.conf`](config/lily58_right.conf) — the priority order there is load-bearing, read the comments.
 
-Deliberately off: Luna the dog and Bongo Cat (upstream [issue #30](https://github.com/mctechnology17/zmk-nice-oled/issues/30) — on nice!view they freeze while typing whenever the modifier row is on, so it's one or the other), the responsive bongo cat (doesn't link), smart battery, and Raw HID.
+> ⚠️ The module draws on a 68 px wide portrait canvas and rotates it onto the panel, but several of its own nice!view X defaults sit past that edge (modifiers 62, CapsLock 100, Luna 100) — see upstream [issue #26](https://github.com/mctechnology17/zmk-nice-oled/issues/26). Every position here is set explicitly. Don't leave one to the module default without checking it against 68.
+
+Deliberately off, each for a verified reason: Luna and Bongo Cat ([issue #30](https://github.com/mctechnology17/zmk-nice-oled/issues/30) — they freeze while typing whenever the modifier row is on), WPM (its gauge collides with the modifier box, and [PR #33](https://github.com/mctechnology17/zmk-nice-oled/pull/33) shows it forces a full-canvas redraw every second while typing), CapsLock (renders an empty string unless an animation is attached), the responsive bongo cat (doesn't link), smart battery, and Raw HID.
 
 Every flag, every trap, and how custom artwork would work: [`docs/zmk-nice-oled.md`](docs/zmk-nice-oled.md).
 

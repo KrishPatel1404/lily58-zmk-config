@@ -318,8 +318,11 @@ defaults, for reference:
 | HID indicators | 100 | 15 (Luna) / 8 (Bongo) | | Modifiers | 2 | 110 |
 | Peripheral animation | 36 | 0 | | Sleep status | 0 | 0 |
 
-Canvas is 68 wide × 160 tall. Negative values are legal and used deliberately (Bongo Cat's `-9`
-bleeds it off the edge). Set them via `CONFIG_NICE_OLED_WIDGET_<THING>_CUSTOM_X` / `_Y`.
+Canvas is 68 wide × 160 tall. Set them via `CONFIG_NICE_OLED_WIDGET_<THING>_CUSTOM_X` / `_Y`.
+
+⚠️ **The table above is the module README's, and it is wrong in places** — it lists modifiers at
+X=2 where `Kconfig.defconfig` actually says 62. Read the Kconfig, not the README, and check every
+X against the 68 px limit (see [section 7](#-the-68-pixel-rule-half-the-modules-own-x-defaults-are-off-screen)).
 
 There is also a third shield, **`nice_custom`**, which is the same widget set with the panel
 geometry itself moved into Kconfig (`CUSTOM_CANVAS_WIDTH` / `_HEIGHT`) and its overlay left for you
@@ -346,6 +349,71 @@ computes ~10 effects procedurally on the MCU (plasma, rule 30, starfield, matrix
 ## 7. Known bugs and gotchas
 
 Verified against module source at `46f824ab` unless noted.
+
+### 🔴 The 68-pixel rule: half the module's own X defaults are off-screen
+
+The single most important thing on this page. The module draws onto a **portrait canvas
+`CONFIG_NICE_OLED_CUSTOM_CANVAS_WIDTH = 68`** px wide, then software-rotates it 90° onto the
+160×68 panel (`widgets/util.c: rotate_canvas`, and `screen.c` sizes the object 160×68). **Any
+pre-rotation X of 68 or more never reaches the glass.**
+
+Several `nice_epaper` defaults in the module's own `Kconfig.defconfig` break that rule:
+
+| Widget | Module's ePaper default X | Width it draws | Right edge | Visible? |
+|---|---|---|---|---|
+| Modifiers (2×2 box) | **62** | 30 (2×14 + 2 gap) | 92 | right column gone, left clipped to 6 px |
+| Modifiers (horizontal) | **62** | 62 (4×14 + gaps) | 124 | mostly gone |
+| HID indicators | **100** | — | — | entirely gone |
+| Luna | **100** | — | — | entirely gone |
+| `PROFILE_BIG` | 18 | 70 (5×14) | 88 | last two dots clipped |
+
+This is upstream **issue #26**, where a user on a Typeractive Corne with nice!view reports
+*"my modifiers are also sent all the way off the screen and I can only see a sliver of it on
+the right side"*. Exactly this.
+
+Two further traps in the same area:
+
+- **The README's position tables disagree with `Kconfig.defconfig`.** The README says modifiers
+  default to X=2, Y=110 on ePaper; the Kconfig says **62, 62**. The Kconfig wins. Treat the
+  README tables as unreliable and read `Kconfig.defconfig` directly.
+- **`FIXED_VER` is the only layout with ePaper-aware X.** `screen.c` hardcodes
+  `base_x = (68 - img_size) / 2` for the centred vertical layout; `BOX` and `HOR` both use
+  `CONFIG_NICE_OLED_WIDGET_MODIFIERS_CUSTOM_X` raw. But `VER` needs 62 px of *height* for its
+  four stacked glyphs, which then fights the profile row at Y=129.
+
+**Rule: set every X explicitly and check it against 68.** Y has the full 160 to play with and is
+far more forgiving. The maths for a centred 2×2 modifier box is `(68 − 30) / 2 = 19`.
+
+### 🔴 `HID_INDICATORS=y` renders nothing unless an animation is attached
+
+`widgets/hid_indicators.c` defines `HID_HAS_ANIMATION 1` **only** under
+`HID_INDICATORS_BONGO_CAT` or `HID_INDICATORS_LUNA`. With both off, the `#else` branch compiles
+to an unconditional:
+
+```c
+// HID_HAS_ANIMATION = 0: No animation enabled
+// Widget remains functional but displays nothing visually
+lv_label_set_text(label, "");
+```
+
+So `CONFIG_NICE_OLED_WIDGET_HID_INDICATORS=y` on its own buys **zero visible output** while still
+forcing `CONFIG_ZMK_HID_INDICATORS=y` and its BLE/HID plumbing and RAM. And attaching an
+animation to fix it walks straight into the issue #30 freeze below. On a nice!view with the
+modifier row enabled, this widget is not salvageable — leave it `n`.
+
+### 🟠 The WPM label position knob is a no-op on ePaper
+
+`widgets/wpm.c` has two branches. The ePaper one hardcodes `#define DRAW_LABEL_WMP_Y 103` and
+draws at a literal `x=0`; only the non-ePaper branch reads
+`CONFIG_NICE_OLED_WIDGET_WPM_LABEL_CUSTOM_X/_Y`. So the documented way to move the WPM readout
+does nothing on this hardware.
+
+### 🟠 The profile widget does not adapt to the profile count
+
+Unlike ZMK's stock nice!view widget, `widgets/profile.c` draws a **fixed five** slots on both
+code paths — a flat `for (int i = 0; i < 5; i++)` under `PROFILE_BIG`, and a single fixed sprite
+without it. With `BT_MAX_PAIRED=4` (3 host profiles) the screen still shows 5 markers, 2 of which
+can never be selected. Cosmetic, but don't expect the stock behaviour.
 
 ### 🔴 Peripheral animation selection is an `#elif` chain, and cat wins
 
