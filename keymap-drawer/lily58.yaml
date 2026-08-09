@@ -12,7 +12,7 @@ layers:
   - '8'
   - '9'
   - '0'
-  - '='
+  - '-'
   - ⇥
   - Q
   - W
@@ -24,7 +24,7 @@ layers:
   - I
   - O
   - P
-  - '-'
+  - ⌫
   - ⎋
   - {t: A, h: ⌃}
   - {t: S, h: ⇧}
@@ -36,27 +36,27 @@ layers:
   - {t: K, h: ⌥}
   - {t: L, h: ⇧}
   - {t: ;, h: ⌃}
-  - ⌫
-  - {t: ⌃, type: mod}
+  - SINGLE QUOTE
+  - {t: ⇧, type: mod}
   - Z
   - X
   - C
   - V
   - B
   - {t: ⟳, h: ↕, type: encoder}
-  - ''''
+  - ▲
   - N
   - M
   - ','
   - .
   - /
   - {t: ⇧, type: mod}
-  - {t: ⌥, type: mod}
+  - {t: ⌃, type: mod}
   - {t: ⌘, type: mod}
   - ▼
   - ␣
   - ⏎
-  - ▲
+  - {t: ⌥, type: mod}
   - ←
   - →
   Lower:
@@ -162,18 +162,18 @@ layers:
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: ⟳, h: ♪, type: encoder}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
   - {type: held}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
