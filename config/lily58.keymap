@@ -124,11 +124,11 @@
         lower_layer {
             display-name = "Lower";
             bindings = <
-&trans     &trans    &trans  &trans    &trans      &trans                                      &trans     &trans    &trans     &trans         &trans        &trans
-&trans     &trans    &trans  &trans    &trans      &trans                                      &kp EQUAL  &kp PLUS  &kp MINUS  &kp STAR       &kp KP_SLASH  &trans
-&kp GRAVE  &kp EXCL  &kp AT  &kp HASH  &kp DOLLAR  &kp PRCNT                                   &kp LEFT   &kp DOWN  &kp UP     &kp RIGHT      &trans        &trans
-&trans     &trans    &trans  &trans    &trans      &trans     &kp C_BRIGHTNESS_AUTO    &trans  &trans     &trans    &trans     &kp BACKSLASH  &kp PIPE      &trans
-                             &trans    &trans      &trans     &trans                   &trans  &trans     &trans    &trans
+&trans  &trans            &trans             &trans                &trans                 &trans                                   &trans     &trans         &trans            &trans         &trans        &trans
+&trans  &kp DOLLAR        &kp AT_SIGN        &kp HASH              &kp EXCLAMATION        &trans                                   &kp EQUAL  &kp PLUS       &kp MINUS         &kp STAR       &kp KP_SLASH  &trans
+&trans  &kp PERCENT       &kp AMPERSAND      &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &trans                                   &kp LEFT   &kp DOWN       &kp UP            &kp RIGHT      &trans        &trans
+&trans  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LEFT_BRACE        &kp RIGHT_BRACE        &trans  &kp C_BRIGHTNESS_AUTO    &trans  &kp CARET  &kp LESS_THAN  &kp GREATER_THAN  &kp BACKSLASH  &kp PIPE      &trans
+                                             &trans                &trans                 &trans  &trans                   &trans  &trans     &trans         &trans
             >;
 
             // Left encoder: CW = brightness up, CCW = brightness down
