@@ -34,13 +34,13 @@
 
 </div>
 
-3 layers (Base / Lower / Raise) + 3 reserved slots for adding layers live in ZMK Studio.
+3 layers (Base / Lower / Raise).
 
 Homerow mods on A/S/D/F + J/K/L/; (Ctrl · Shift · Opt · Cmd, mirrored) — timeless recipe, zero added delay while typing at speed. Same-hand stacking is limited to **⌘⇧ and ⌥⇧** (hold J+L, tap T = ⌘⇧T); other pairs need one mod per hand. Capitals come from the dedicated Shift keys.
 
 Left encoder (the violet ⟳ key): **Base** = page up/down · **Lower** = brightness · **Raise** = volume.
 
-Edit with [ZMK Studio](https://zmk.studio), [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/), or [`config/lily58.keymap`](config/lily58.keymap).
+Edit with [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/) or [`config/lily58.keymap`](config/lily58.keymap).
 
 ## 🖥️ Displays
 
@@ -79,10 +79,10 @@ Firmware-relevant pushes build in CI ([ZMK v0.3](https://github.com/zmkfirmware/
 ## 📁 Repo Layout
 
 ```
-build.yaml                    # build matrix: left/right + nice!view (+ Studio snippet), settings_reset
+build.yaml                    # build matrix: left/right + nice!view, settings_reset
 config/
   lily58.keymap               # layers + encoder sensor-bindings
-  lily58.conf                 # Kconfig: BT power + low-latency conn, debounce, display, battery, Studio, encoder
+  lily58.conf                 # Kconfig: BT power + low-latency conn, debounce, display, battery, encoder
   lily58_left.conf            # central-half only: 3 BLE host profiles, split-link latency, central screen widgets
   lily58_right.conf           # peripheral-half only: which animation the right screen runs
   west.yml                    # ZMK pinned to v0.3 + the zmk-nice-oled module pinned by sha

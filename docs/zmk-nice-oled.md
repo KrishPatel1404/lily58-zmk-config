@@ -139,7 +139,6 @@ HEAD, so pinning it costs nothing and protects against a surprise force-push.
 ```yaml
   - board: nice_nano_v2
     shield: lily58_left nice_view_adapter nice_epaper
-    snippet: studio-rpc-usb-uart
   - board: nice_nano_v2
     shield: lily58_right nice_view_adapter nice_epaper
 ```
