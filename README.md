@@ -71,7 +71,7 @@ Firmware-relevant pushes build in CI ([ZMK v0.3](https://github.com/zmkfirmware/
 ## 🔋 Battery Notes
 
 - Both halves report their own battery on their own screen; the left half also proxies the right half's level to the host, so macOS shows both under Bluetooth.
-- **Deep sleep is off** and the BLE connection is pinned to a 7.5 ms interval with no skipped events (lowest latency ZMK can ask for) — so real runtime is well under the [power profiler](https://zmk.dev/power-profiler)'s ~4 months central / ~1 year peripheral estimate. Raise `CONFIG_BT_PERIPHERAL_PREF_LATENCY` in `lily58.conf` to trade latency back for runtime.
+- **Deep sleep is off** and *both* BLE links are pinned to a 7.5 ms interval with no skipped events (lowest latency ZMK can ask for) — the host link via `CONFIG_BT_PERIPHERAL_PREF_LATENCY` in `lily58.conf`, and the split link between the halves via `CONFIG_ZMK_SPLIT_BLE_PREF_LATENCY` in `lily58_left.conf`. So real runtime is well under the [power profiler](https://zmk.dev/power-profiler)'s ~4 months central / ~1 year peripheral estimate. Raise either back toward 30 to trade latency for runtime.
 - Charges via USB-C at 100 mA — full charge takes overnight.
 
 **⚠️ Battery safety:** replacement-pack polarity isn't standardized — multimeter-verify red/+ lands on **B+** before connecting (reversed = dead board, fire risk). nice!nano has no low-voltage cutoff; use packs with a protection circuit.
@@ -83,7 +83,7 @@ build.yaml                    # build matrix: left/right + nice!view (+ Studio s
 config/
   lily58.keymap               # layers + encoder sensor-bindings
   lily58.conf                 # Kconfig: BT power + low-latency conn, debounce, display, battery, Studio, encoder
-  lily58_left.conf            # central-half only: 3 BLE host profiles + central screen widgets
+  lily58_left.conf            # central-half only: 3 BLE host profiles, split-link latency, central screen widgets
   lily58_right.conf           # peripheral-half only: which animation the right screen runs
   west.yml                    # ZMK pinned to v0.3 + the zmk-nice-oled module pinned by sha
 keymap-drawer/
