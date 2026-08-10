@@ -119,6 +119,12 @@ layers:
   - {t: □, type: trans}
   - {t: □, type: trans}
   Raise:
+  - BT 0
+  - BT 1
+  - BT 2
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - BT ✕
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
@@ -130,6 +136,7 @@ layers:
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
+  - NEXT
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
@@ -141,6 +148,7 @@ layers:
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
+  - PREV
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
@@ -152,15 +160,7 @@ layers:
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
+  - PLAY PAUSE
   - {t: ⟳, h: ♪, type: encoder}
   - {type: held}
   - {t: □, type: trans}
