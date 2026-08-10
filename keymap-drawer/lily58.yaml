@@ -57,33 +57,33 @@ layers:
   - ␣
   - ⏎
   - {t: ⌥, type: mod}
-  - ←
-  - →
+  - {t: UP ARROW, h: ←}
+  - {t: ↓, h: →}
   Lower:
-  - BT 0
-  - BT 1
-  - BT 2
-  - ''
-  - ''
-  - BT ✕
-  - F7
-  - F8
-  - F9
-  - F10
-  - F11
-  - F12
-  - F1
-  - F2
-  - F3
-  - F4
-  - F5
-  - F6
-  - ^
-  - '&'
-  - ×
-  - (
-  - )
-  - '~'
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - '='
+  - +
+  - '-'
+  - '*'
+  - KP SLASH
+  - {t: □, type: trans}
   - '`'
   - '!'
   - '@'
@@ -105,11 +105,11 @@ layers:
   - {t: ⟳, h: ☀, type: encoder}
   - {t: □, type: trans}
   - {t: □, type: trans}
-  - '-'
-  - +
-  - '{'
-  - '}'
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - BACKSLASH
   - '|'
+  - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {type: held}
