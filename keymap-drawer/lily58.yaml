@@ -24,7 +24,7 @@ layers:
   - I
   - O
   - P
-  - {t: '=', h: ⌫}
+  - '='
   - ⎋
   - {t: A, h: ⌃}
   - {t: S, h: ⇧}
@@ -36,7 +36,7 @@ layers:
   - {t: K, h: ⌥}
   - {t: L, h: ⇧}
   - {t: ;, h: ⌃}
-  - SINGLE QUOTE
+  - {t: ⌫, h: SINGLE QUOTE}
   - {t: ⇧, type: mod}
   - Z
   - X
