@@ -24,7 +24,7 @@ layers:
   - I
   - O
   - P
-  - ⌫
+  - {t: '=', h: ⌫}
   - ⎋
   - {t: A, h: ⌃}
   - {t: S, h: ⇧}
@@ -56,7 +56,7 @@ layers:
   - ▼
   - ␣
   - ⏎
-  - {t: ⌥, type: mod}
+  - {t: ⌫, h: ⌥}
   - {t: UP ARROW, h: ←}
   - {t: ↓, h: →}
   Lower:
@@ -78,7 +78,7 @@ layers:
   - '#'
   - EXCLAMATION
   - {t: □, type: trans}
-  - '='
+  - {t: □, type: trans}
   - +
   - '-'
   - '*'
