@@ -73,10 +73,10 @@ layers:
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
+  - $
+  - AT SIGN
+  - '#'
+  - EXCLAMATION
   - {t: □, type: trans}
   - '='
   - +
@@ -84,12 +84,12 @@ layers:
   - '*'
   - KP SLASH
   - {t: □, type: trans}
-  - '`'
-  - '!'
-  - '@'
-  - '#'
-  - $
-  - '%'
+  - {t: □, type: trans}
+  - PERCENT
+  - AMPERSAND
+  - LEFT PARENTHESIS
+  - RIGHT PARENTHESIS
+  - {t: □, type: trans}
   - ←
   - ↓
   - ↑
@@ -97,16 +97,16 @@ layers:
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
+  - LEFT BRACKET
+  - RIGHT BRACKET
+  - LEFT BRACE
+  - RIGHT BRACE
   - {t: □, type: trans}
   - {t: ⟳, h: ☀, type: encoder}
   - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
+  - ^
+  - LESS THAN
+  - GREATER THAN
   - BACKSLASH
   - '|'
   - {t: □, type: trans}
