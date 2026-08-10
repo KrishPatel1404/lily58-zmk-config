@@ -12,7 +12,7 @@ layers:
   - '8'
   - '9'
   - '0'
-  - '='
+  - '-'
   - ⇥
   - Q
   - W
@@ -24,7 +24,7 @@ layers:
   - I
   - O
   - P
-  - '-'
+  - ⌫
   - ⎋
   - {t: A, h: ⌃}
   - {t: S, h: ⇧}
@@ -36,60 +36,60 @@ layers:
   - {t: K, h: ⌥}
   - {t: L, h: ⇧}
   - {t: ;, h: ⌃}
-  - ⌫
-  - {t: ⌃, type: mod}
+  - SINGLE QUOTE
+  - {t: ⇧, type: mod}
   - Z
   - X
   - C
   - V
   - B
   - {t: ⟳, h: ↕, type: encoder}
-  - ''''
+  - ▲
   - N
   - M
   - ','
   - .
   - /
   - {t: ⇧, type: mod}
-  - {t: ⌥, type: mod}
+  - {t: ⌃, type: mod}
   - {t: ⌘, type: mod}
   - ▼
   - ␣
   - ⏎
-  - ▲
-  - ←
-  - →
+  - {t: ⌥, type: mod}
+  - {t: UP ARROW, h: ←}
+  - {t: ↓, h: →}
   Lower:
-  - BT 0
-  - BT 1
-  - BT 2
-  - ''
-  - ''
-  - BT ✕
-  - F7
-  - F8
-  - F9
-  - F10
-  - F11
-  - F12
-  - F1
-  - F2
-  - F3
-  - F4
-  - F5
-  - F6
-  - ^
-  - '&'
-  - ×
-  - (
-  - )
-  - '~'
-  - '`'
-  - '!'
-  - '@'
-  - '#'
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
   - $
-  - '%'
+  - AT SIGN
+  - '#'
+  - EXCLAMATION
+  - {t: □, type: trans}
+  - '='
+  - +
+  - '-'
+  - '*'
+  - KP SLASH
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - PERCENT
+  - AMPERSAND
+  - LEFT PARENTHESIS
+  - RIGHT PARENTHESIS
+  - {t: □, type: trans}
   - ←
   - ↓
   - ↑
@@ -97,19 +97,19 @@ layers:
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
+  - LEFT BRACKET
+  - RIGHT BRACKET
+  - LEFT BRACE
+  - RIGHT BRACE
   - {t: □, type: trans}
   - {t: ⟳, h: ☀, type: encoder}
   - {t: □, type: trans}
-  - {t: □, type: trans}
-  - '-'
-  - +
-  - '{'
-  - '}'
+  - ^
+  - LESS THAN
+  - GREATER THAN
+  - BACKSLASH
   - '|'
+  - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {type: held}
@@ -119,6 +119,12 @@ layers:
   - {t: □, type: trans}
   - {t: □, type: trans}
   Raise:
+  - BT 0
+  - BT 1
+  - BT 2
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - BT ✕
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
@@ -130,6 +136,7 @@ layers:
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
+  - NEXT
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
@@ -141,6 +148,7 @@ layers:
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
+  - PREV
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
@@ -152,28 +160,20 @@ layers:
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
+  - PLAY PAUSE
   - {t: ⟳, h: ♪, type: encoder}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
   - {type: held}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
+  - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
