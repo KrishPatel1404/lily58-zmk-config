@@ -51,14 +51,14 @@ layers:
   - .
   - /
   - {t: ⇧, type: mod}
-  - {t: ⌥, type: mod}
-  - {t: ⌘, type: mod}
+  - {t: UP ARROW, h: ⌥}
+  - {t: ↓, h: ⌘}
   - ▼
   - ␣
   - ⏎
   - ▲
-  - ⌫
-  - {t: ⌘, type: mod}
+  - ←
+  - →
   Lower:
   - {t: □, type: trans}
   - {t: □, type: trans}
