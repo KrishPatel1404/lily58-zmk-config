@@ -44,7 +44,7 @@ layers:
   - V
   - B
   - {t: ⟳, h: ↕, type: encoder}
-  - SINGLE QUOTE
+  - ''''
   - N
   - M
   - ','

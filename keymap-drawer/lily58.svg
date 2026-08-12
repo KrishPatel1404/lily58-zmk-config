@@ -341,9 +341,7 @@ text.footer { fill: #8a8f96; }
 </g>
 <g transform="translate(560, 182)" class="key keypos-43">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">SINGLE</tspan><tspan x="0" dy="1.2em">QUOTE</tspan>
-</text>
+<text x="0" y="0" class="key tap">&#x27;</text>
 </g>
 <g transform="translate(616, 210)" class="key keypos-44">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
