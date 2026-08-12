@@ -150,6 +150,11 @@ text.encoder { fill: #74609f; font-weight: bold; }
 /* Big center icon (the knob's function) + a clearly-visible ⟳ rotary marker below. */
 text.encoder.tap  { font-size: 1.7em; }
 text.encoder.hold { font-size: 1.35em; }
+/* --- The two mod-tap arrow thumb keys (↑/⌥, ↓/⌘): blue so they stand out.
+       Never write an ampersand in this block: svg_extra_style is raw XML, so a bare
+       one is an undefined entity ref and breaks the whole SVG. --- */
+rect.modtap { fill: #d6e6ff; stroke: #6aa2f0; }
+text.modtap { fill: #1d4ed8; font-weight: bold; }
 /* --- Footer: quiet it down --- */
 text.footer { fill: #8a8f96; }
 
@@ -158,6 +163,8 @@ text.footer { fill: #8a8f96; }
   rect.held  { fill: #6b5327; stroke: #a9853f; }
   text.hold  { fill: #b4bbff; }
   text.layer-activator { fill: #58d6c3; }
+  rect.modtap { fill: #1c3663; stroke: #5b8fdc; }
+  text.modtap { fill: #a9c9ff; }
   rect.encoder { fill: #3a3350; stroke: #736a97; }
   text.encoder { fill: #c6bce0; }
   text.footer { fill: #7e8489; }
@@ -367,15 +374,15 @@ text.footer { fill: #8a8f96; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key mod"/>
 <text x="0" y="0" class="key mod tap">⇧</text>
 </g>
-<g transform="translate(168, 259)" class="key keypos-50">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">↑</text>
-<text x="0" y="24" class="key hold">⌥</text>
+<g transform="translate(168, 259)" class="key modtap keypos-50">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key modtap"/>
+<text x="0" y="0" class="key modtap tap">↑</text>
+<text x="0" y="24" class="key modtap hold">⌥</text>
 </g>
-<g transform="translate(224, 260)" class="key keypos-51">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">↓</text>
-<text x="0" y="24" class="key hold">⌘</text>
+<g transform="translate(224, 260)" class="key modtap keypos-51">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key modtap"/>
+<text x="0" y="0" class="key modtap tap">↓</text>
+<text x="0" y="24" class="key modtap hold">⌘</text>
 </g>
 <g transform="translate(280, 266)" class="key keypos-52">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
