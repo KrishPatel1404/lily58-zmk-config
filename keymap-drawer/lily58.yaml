@@ -51,8 +51,8 @@ layers:
   - .
   - /
   - {t: ⇧, type: mod}
-  - {t: ↑, h: ⌥, type: modtap}
-  - {t: ↓, h: ⌘, type: modtap}
+  - {t: ↑, h: ⌥, type: mod}
+  - {t: ↓, h: ⌘, type: mod}
   - ▼
   - ␣
   - ⏎

@@ -35,11 +35,6 @@ draw_config:
     /* Big center icon (the knob's function) + a clearly-visible ⟳ rotary marker below. */
     text.encoder.tap  { font-size: 1.7em; }
     text.encoder.hold { font-size: 1.35em; }
-    /* --- The two mod-tap arrow thumb keys (↑/⌥, ↓/⌘): blue so they stand out.
-           Never write an ampersand in this block: svg_extra_style is raw XML, so a bare
-           one is an undefined entity ref and breaks the whole SVG. --- */
-    rect.modtap { fill: #d6e6ff; stroke: #6aa2f0; }
-    text.modtap { fill: #1d4ed8; font-weight: bold; }
     /* --- Footer: quiet it down --- */
     text.footer { fill: #8a8f96; }
 
@@ -48,8 +43,6 @@ draw_config:
       rect.held  { fill: #6b5327; stroke: #a9853f; }
       text.hold  { fill: #b4bbff; }
       text.layer-activator { fill: #58d6c3; }
-      rect.modtap { fill: #1c3663; stroke: #5b8fdc; }
-      text.modtap { fill: #a9c9ff; }
       rect.encoder { fill: #3a3350; stroke: #736a97; }
       text.encoder { fill: #c6bce0; }
       text.footer { fill: #7e8489; }
@@ -91,11 +84,13 @@ parse_config:
     "&kp C_BRIGHTNESS_AUTO": {t: "⟳", h: "☀", type: "encoder"}  # Lower = brightness
     "&kp K_MUTE":            {t: "⟳", h: "♪", type: "encoder"}  # Raise = volume
 
-    # The two mod-tap thumb keys (tap = arrow, hold = ⌥/⌘). Tagged type "modtap" purely
-    # to colour them blue (.modtap CSS in svg_extra_style) — they're the only &mt in the
-    # keymap, so this can't affect any other key.
-    "&mt LALT UP":   {t: "↑", h: "⌥", type: "modtap"}
-    "&mt LGUI DOWN": {t: "↓", h: "⌘", type: "modtap"}
+    # The two mod-tap thumb keys (tap = arrow, hold = ⌥/⌘). type "mod" is the SAME tag the
+    # standalone modifier keys get from zmk_keycode_map below, so they render identically
+    # (indigo rect.mod fill + the shared text.hold accent) — no separate CSS rule.
+    # The explicit t: is also load-bearing: a mod-tap's params bypass zmk_keycode_map, so
+    # without it the tap legend renders as the literal text "UP ARROW".
+    "&mt LALT UP":   {t: "↑", h: "⌥", type: "mod"}
+    "&mt LGUI DOWN": {t: "↓", h: "⌘", type: "mod"}
 
   # NOTE: setting zmk_keycode_map REPLACES the built-in default map entirely (it does NOT
   # merge). So every symbol we want pretty must be listed here — the punctuation block below
