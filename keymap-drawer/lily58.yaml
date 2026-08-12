@@ -51,7 +51,7 @@ layers:
   - .
   - /
   - {t: ⇧, type: mod}
-  - {t: UP ARROW, h: ⌥}
+  - {t: ↑, h: ⌥}
   - {t: ↓, h: ⌘}
   - ▼
   - ␣
