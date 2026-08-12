@@ -34,11 +34,9 @@
 
 </div>
 
-3 layers (Base / Lower / Raise).
+3 layers (Base / Lower / Raise), stock upstream Typeractive layout — no homerow mods, no custom behaviors. Plain `&kp` everywhere, modifiers on the pinkies and thumbs.
 
-Homerow mods on A/S/D/F + J/K/L/; (Ctrl · Shift · Opt · Cmd, mirrored) — timeless recipe, zero added delay while typing at speed. Same-hand stacking is limited to **⌘⇧ and ⌥⇧** (hold J+L, tap T = ⌘⇧T); other pairs need one mod per hand. Capitals come from the dedicated Shift keys.
-
-Left encoder (the violet ⟳ key): **Base** = page up/down · **Lower** = brightness · **Raise** = volume.
+Left encoder (the violet ⟳ key): **volume** on every layer.
 
 Edit with [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/) or [`config/lily58.keymap`](config/lily58.keymap).
 
@@ -46,7 +44,7 @@ Edit with [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/) or [`con
 
 Both nice!views run [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled)'s `nice_epaper` shield instead of ZMK's stock widget, pinned by commit sha in [`config/west.yml`](config/west.yml).
 
-**Left (central):** battery · USB/BT output + profile dots · **live modifier indicators** (⌘ ⌥ ⇧ ⌃ as real macOS glyphs in a 2×2 box, so you can see the homerow mods as you hold them) · current layer name.
+**Left (central):** battery · USB/BT output + profile dots · **live modifier indicators** (⌘ ⌥ ⇧ ⌃ as real macOS glyphs in a 2×2 box, live as you hold them) · current layer name.
 
 **Right (peripheral):** battery + a looping cat animation. Swap it for spaceman, pokemon, head, gem, or a still image in [`config/lily58_right.conf`](config/lily58_right.conf) — the priority order there is load-bearing, read the comments.
 
@@ -90,7 +88,7 @@ keymap-drawer/
   config.yaml                 # keymap diagram styling (hand-written)
   lily58.svg / lily58.yaml    # auto-generated diagram (CI output — don't hand-edit)
 docs/
-  displays.md                 # nice!view widget reference + re-add recipe (not in use)
+  zmk-nice-oled.md            # nice!view display module dossier (flags, traps, custom art)
 .github/workflows/
   build.yml                   # CI → zmkfirmware reusable build workflow
   draw-keymaps.yml            # CI → keymap-drawer diagram render

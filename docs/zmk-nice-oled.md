@@ -8,8 +8,7 @@ customise it, how to draw your own images and animations, and every bug and gotc
 > Researched 2026-08-07 against module HEAD `46f824ab` (2026-01-26) and ZMK `v0.3.0`.
 > Facts below were verified against the module's and ZMK's actual source unless marked otherwise.
 
-Related: [`displays.md`](displays.md) holds the older, shorter re-add recipe and the flag menu.
-This file supersedes it on everything except the widget-by-widget screenshots.
+This is the single reference for the displays; the older, shorter `displays.md` was deleted 2026-08-13 as redundant.
 
 ---
 
