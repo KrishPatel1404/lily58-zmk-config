@@ -19,7 +19,7 @@
 |---|---|
 | **Keyboard** | [Typeractive Lily58 wireless](https://typeractive.xyz/products/lily58-partially-assembled-pcb) — 58-key column-staggered split (6×4+4 per half), designed by [kata0510](https://github.com/kata0510/Lily58) |
 | **Controllers** | 2× [nice!nano v2](https://nicekeyboards.com/docs/nice-nano/) (nRF52840, BLE 5, UF2 bootloader) |
-| **Displays** | 2× [nice!view](https://nicekeyboards.com/docs/nice-view/) — Sharp memory-in-pixel LCD, ~1000× less power than OLED. Stock ZMK `nice_view` widget (battery, output/profile, layer, WPM) |
+| **Displays** | 2× [nice!view](https://nicekeyboards.com/docs/nice-view/) — Sharp memory-in-pixel LCD, 160×68, 1-bit, ~1000× less power than OLED. Custom widgets via [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled) |
 | **Switches** | 60× Kailh **Choc Sunset** tactile — 40 gf actuation, 55 gf bump, 3.0 mm travel, factory-lubed |
 | **Keycaps** | Blank Choc v1, all white — 8× convex 1u (thumbs), 2× homing 1u, 2× 1.5u, rest 1u |
 | **Batteries** | 2× 1800 mAh LIP1359 (PS3-controller replacement cells) — months per charge |
@@ -34,13 +34,27 @@
 
 </div>
 
-3 layers (Base / Lower / Raise) + 3 reserved slots for adding layers live in ZMK Studio.
+3 layers (Base / Lower / Raise).
 
 Homerow mods on A/S/D/F + J/K/L/; (Ctrl · Shift · Opt · Cmd, mirrored) — timeless recipe, zero added delay while typing at speed. Same-hand stacking is limited to **⌘⇧ and ⌥⇧** (hold J+L, tap T = ⌘⇧T); other pairs need one mod per hand. Capitals come from the dedicated Shift keys.
 
 Left encoder (the violet ⟳ key): **Base** = page up/down · **Lower** = brightness · **Raise** = volume.
 
-Edit with [ZMK Studio](https://zmk.studio), [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/), or [`config/lily58.keymap`](config/lily58.keymap).
+Edit with [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/) or [`config/lily58.keymap`](config/lily58.keymap).
+
+## 🖥️ Displays
+
+Both nice!views run [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled)'s `nice_epaper` shield instead of ZMK's stock widget, pinned by commit sha in [`config/west.yml`](config/west.yml).
+
+**Left (central):** battery · USB/BT output + profile dots · **live modifier indicators** (⌘ ⌥ ⇧ ⌃ as real macOS glyphs in a 2×2 box, so you can see the homerow mods as you hold them) · current layer name.
+
+**Right (peripheral):** battery + a looping cat animation. Swap it for spaceman, pokemon, head, gem, or a still image in [`config/lily58_right.conf`](config/lily58_right.conf) — the priority order there is load-bearing, read the comments.
+
+> ⚠️ The module draws on a 68 px wide portrait canvas and rotates it onto the panel, but several of its own nice!view X defaults sit past that edge (modifiers 62, CapsLock 100, Luna 100) — see upstream [issue #26](https://github.com/mctechnology17/zmk-nice-oled/issues/26). Every position here is set explicitly. Don't leave one to the module default without checking it against 68.
+
+Deliberately off, each for a verified reason: Luna and Bongo Cat ([issue #30](https://github.com/mctechnology17/zmk-nice-oled/issues/30) — they freeze while typing whenever the modifier row is on), WPM (its gauge collides with the modifier box, and [PR #33](https://github.com/mctechnology17/zmk-nice-oled/pull/33) shows it forces a full-canvas redraw every second while typing), CapsLock (renders an empty string unless an animation is attached), the responsive bongo cat (doesn't link), smart battery, and Raw HID.
+
+Every flag, every trap, and how custom artwork would work: [`docs/zmk-nice-oled.md`](docs/zmk-nice-oled.md).
 
 ## 🔨 Building & Flashing
 
@@ -57,7 +71,7 @@ Firmware-relevant pushes build in CI ([ZMK v0.3](https://github.com/zmkfirmware/
 ## 🔋 Battery Notes
 
 - Both halves report their own battery on their own screen; the left half also proxies the right half's level to the host, so macOS shows both under Bluetooth.
-- **Deep sleep is off** and the BLE connection is pinned to a 7.5 ms interval with no skipped events (lowest latency ZMK can ask for) — so real runtime is well under the [power profiler](https://zmk.dev/power-profiler)'s ~4 months central / ~1 year peripheral estimate. Raise `CONFIG_BT_PERIPHERAL_PREF_LATENCY` in `lily58.conf` to trade latency back for runtime.
+- **Deep sleep is off** and *both* BLE links are pinned to a 7.5 ms interval with no skipped events (lowest latency ZMK can ask for) — the host link via `CONFIG_BT_PERIPHERAL_PREF_LATENCY` in `lily58.conf`, and the split link between the halves via `CONFIG_ZMK_SPLIT_BLE_PREF_LATENCY` in `lily58_left.conf`. So real runtime is well under the [power profiler](https://zmk.dev/power-profiler)'s ~4 months central / ~1 year peripheral estimate. Raise either back toward 30 to trade latency for runtime.
 - Charges via USB-C at 100 mA — full charge takes overnight.
 
 **⚠️ Battery safety:** replacement-pack polarity isn't standardized — multimeter-verify red/+ lands on **B+** before connecting (reversed = dead board, fire risk). nice!nano has no low-voltage cutoff; use packs with a protection circuit.
@@ -65,12 +79,13 @@ Firmware-relevant pushes build in CI ([ZMK v0.3](https://github.com/zmkfirmware/
 ## 📁 Repo Layout
 
 ```
-build.yaml                    # build matrix: left/right + nice!view (+ Studio snippet), settings_reset
+build.yaml                    # build matrix: left/right + nice!view, settings_reset
 config/
   lily58.keymap               # layers + encoder sensor-bindings
-  lily58.conf                 # Kconfig: BT power + low-latency conn, debounce, display, battery, Studio, encoder
-  lily58_left.conf            # central-half only: 3 BLE host profiles
-  west.yml                    # ZMK pinned to v0.3
+  lily58.conf                 # Kconfig: BT power + low-latency conn, debounce, display, battery, encoder
+  lily58_left.conf            # central-half only: 3 BLE host profiles, split-link latency, central screen widgets
+  lily58_right.conf           # peripheral-half only: which animation the right screen runs
+  west.yml                    # ZMK pinned to v0.3 + the zmk-nice-oled module pinned by sha
 keymap-drawer/
   config.yaml                 # keymap diagram styling (hand-written)
   lily58.svg / lily58.yaml    # auto-generated diagram (CI output — don't hand-edit)
