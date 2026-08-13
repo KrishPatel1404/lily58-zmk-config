@@ -80,14 +80,18 @@
         };
 
         /*
-         * ## Raise — Bluetooth profiles + symbols
+         * ## Raise — Bluetooth profiles, media, symbols
          *
          * |  L1   |  L2  | L3  |  L4  |  L5  |  L6  |  ENC  |  R0  |  R1  |  R2  |  R3  | R4  |  R5  |  R6   |
          * |-------|------|-----|------|------|------|-------|------|------|------|------|-----|------|-------|
          * |       | BT 0 | BT 1| BT 2 |      | BTCLR|       |      |      |      |      |     |      |       |
          * |       |      |     |      |      |      |       |      |      |      |      |     |      |       |
          * |       |      |     |      |      |      |       |      |  ^   |  &   |  *   |  (  |  )   |  ~    |
-         * |       |      |     |      |      |      |  vol  |      |      |  -   |  +   |  {  |  }   |  \|   |
+         * |       |      |     |      |  ⏮   |  ⏭   |  vol  |      |      |  -   |  +   |  {  |  }   |  \|   |
+         *
+         * |  LT1  |  LT2  |  LT3  |  LT4  |  RT1  |  RT2  |  RT3  |  RT4  |
+         * |-------|-------|-------|-------|-------|-------|-------|-------|
+         * |       |       |       |  ⏯    |       |       |       |       |
          *
          * BT 0-2 select a host profile; BTCLR clears the bond on the active one.
          * Encoder: volume up / down.
