@@ -26,16 +26,16 @@ layers:
   - P
   - '='
   - ⎋
-  - A
-  - S
-  - D
-  - F
+  - {t: A, h: ⌃}
+  - {t: S, h: ⇧}
+  - {t: D, h: ⌥}
+  - {t: F, h: ⌘}
   - G
   - H
-  - J
-  - K
-  - L
-  - ;
+  - {t: J, h: ⌘}
+  - {t: K, h: ⌥}
+  - {t: L, h: ⇧}
+  - {t: ;, h: ⌃}
   - ⌫
   - {t: ⌃, type: mod}
   - Z
@@ -159,8 +159,8 @@ layers:
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
-  - {t: □, type: trans}
-  - {t: □, type: trans}
+  - PREV
+  - NEXT
   - {t: ⟳, h: ♪, type: encoder}
   - {t: □, type: trans}
   - {t: □, type: trans}
@@ -172,7 +172,7 @@ layers:
   - {t: □, type: trans}
   - {t: □, type: trans}
   - {t: □, type: trans}
-  - {t: □, type: trans}
+  - PLAY PAUSE
   - {t: □, type: trans}
   - {type: held}
   - {t: □, type: trans}
