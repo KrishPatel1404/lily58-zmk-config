@@ -34,9 +34,17 @@
 
 </div>
 
-3 layers (Base / Lower / Raise), stock upstream Typeractive layout — no homerow mods, no custom behaviors. Plain `&kp` everywhere, modifiers on the pinkies and thumbs.
+3 layers (Base / Lower / Raise), based on the stock upstream Typeractive layout.
 
-Left encoder (the violet ⟳ key): **volume** on every layer.
+**Homerow mods** on row 3 — tap for the letter, hold for the modifier, using urob's ["timeless"](https://github.com/urob/zmk-config#timeless-homerow-mods) recipe (balanced flavor, 280 ms tapping term, 225 ms quick-tap, 150 ms require-prior-idle, opposite-hand positional triggers):
+
+| A | S | D | F | | J | K | L | ; |
+|---|---|---|---|---|---|---|---|---|
+| ⌃ | ⇧ | ⌥ | ⌘ | | ⌘ | ⌥ | ⇧ | ⌃ |
+
+How the recipe works and why these numbers: [`docs/timeless-homerow-mods.md`](docs/timeless-homerow-mods.md).
+
+Left encoder (the violet ⟳ key): **page up/down** on Base, **brightness** on Lower, **volume** on Raise.
 
 Edit with [Keymap Editor](https://nickcoutsos.github.io/keymap-editor/) or [`config/lily58.keymap`](config/lily58.keymap).
 
@@ -79,7 +87,7 @@ Firmware-relevant pushes build in CI ([ZMK v0.3](https://github.com/zmkfirmware/
 ```
 build.yaml                    # build matrix: left/right + nice!view, settings_reset
 config/
-  lily58.keymap               # layers + encoder sensor-bindings
+  lily58.keymap               # homerow mods + layers + encoder sensor-bindings
   lily58.conf                 # Kconfig: BT power + low-latency conn, debounce, display, battery, encoder
   lily58_left.conf            # central-half only: 3 BLE host profiles, split-link latency, central screen widgets
   lily58_right.conf           # peripheral-half only: which animation the right screen runs
@@ -89,6 +97,7 @@ keymap-drawer/
   lily58.svg / lily58.yaml    # auto-generated diagram (CI output — don't hand-edit)
 docs/
   zmk-nice-oled.md            # nice!view display module dossier (flags, traps, custom art)
+  timeless-homerow-mods.md    # how the homerow-mod recipe works, why these numbers
 .github/workflows/
   build.yml                   # CI → zmkfirmware reusable build workflow
   draw-keymaps.yml            # CI → keymap-drawer diagram render
